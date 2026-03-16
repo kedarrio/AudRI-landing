@@ -1,0 +1,217 @@
+/* sections/Regulatory/Regulatory.module.css */
+
+.regulatory {
+  background: var(--bg-1);
+  padding: var(--section-py-lg) var(--section-px);
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.grid {
+  margin-top: var(--sp-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-10);
+}
+
+.mainCard {
+  background: var(--bg-base);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-12);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  min-width: 400px;
+  box-shadow: var(--shadow-2);
+  position: relative;
+}
+
+.mainCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.cardHeader {
+  grid-column: span 2;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3.5vw, 28px);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-2);
+}
+
+.cardSub {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--text-tertiary);
+  margin-bottom: var(--sp-10);
+}
+
+.infog {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-12);
+  grid-column: span 2;
+}
+
+.infoCol {
+  flex: 1;
+}
+
+.infoLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--sp-3);
+}
+
+.infoBox {
+  background: var(--bg-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  padding: var(--sp-4);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  text-align: center;
+  box-shadow: var(--shadow-1);
+}
+
+.infoArrow {
+  color: var(--text-disabled);
+  font-family: var(--font-mono);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--sp-8);
+  grid-column: span 2;
+}
+
+.feat {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+.feat span {
+  color: var(--accent);
+  margin-top: 2px;
+}
+
+.featTitle {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.featDesc {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.proofStrip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  gap: var(--sp-6);
+}
+
+.proofItem {
+  background: var(--bg-base);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  padding: 40px var(--sp-6);
+  text-align: center;
+  min-width: 400px;
+  box-shadow: var(--shadow-3);
+  position: relative;
+}
+
+.proofItem::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.proofNum {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: var(--sp-2);
+  line-height: 1;
+}
+
+.proofLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 1200px) {
+  /* Let auto-fit handle the wrapping naturally */
+}
+
+@media (max-width: 1024px) {
+  .mainCard {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: var(--sp-8);
+  }
+  .cardHeader, .infog, .featureGrid {
+    grid-column: span 1;
+  }
+  .infog {
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-8);
+  }
+  .infoArrow {
+    transform: rotate(90deg);
+  }
+  .featureGrid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+  }
+}
+
+@media (max-width: 880px) {
+  .proofStrip {
+    grid-template-columns: 1fr;
+  }
+  .proofItem {
+    min-width: unset;
+  }
+  .mainCard {
+    min-width: unset;
+    grid-template-columns: 1fr;
+  }
+}

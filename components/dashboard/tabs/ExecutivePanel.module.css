@@ -1,0 +1,88 @@
+/* components/dashboard/tabs/ExecutivePanel.module.css */
+
+.executivePanel {
+  height: 100%;
+  padding: var(--sp-6);
+  overflow-y: auto;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.kpi {
+  background: var(--bg-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+}
+
+.kpiLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+
+.kpiNumber {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.kpiChange {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.up {
+  color: var(--success);
+}
+
+.dn {
+  color: var(--error);
+}
+
+.chart {
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-3);
+  height: 140px;
+  padding: 0 10px;
+  margin-top: var(--sp-5);
+}
+
+.barWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
+
+.bar {
+  width: 100%;
+  background: linear-gradient(to top, var(--accent), rgba(252, 154, 101, 0.2));
+  border-radius: var(--r-xs) var(--r-xs) 0 0;
+  border: 1px solid var(--border-accent);
+  border-bottom: none;
+}
+
+.barLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 767px) {
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+}

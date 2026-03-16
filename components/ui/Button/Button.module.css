@@ -1,0 +1,77 @@
+/* components/ui/Button/Button.module.css */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s var(--ease);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.primary, 
+.cta, 
+.submit {
+  background: var(--accent);
+  color: #000;
+  padding: 11px 26px;
+  border-radius: var(--r-lg);
+}
+
+.primary:hover, 
+.cta:hover, 
+.submit:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.primary:hover {
+  box-shadow: 0 8px 32px rgba(252, 154, 101, 0.22);
+}
+
+.cta:hover {
+  box-shadow: 0 4px 16px rgba(252, 154, 101, 0.28);
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  padding: 11px 26px;
+  border-radius: var(--r-lg);
+}
+
+.ghost:hover {
+  background: var(--glass-2);
+  color: var(--text-primary);
+}
+
+.submit {
+  padding: 11px 22px;
+}
+
+@media (max-width: 767px) {
+  .primary,
+  .ghost,
+  .cta,
+  .submit {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    min-height: 40px;
+    border-radius: var(--r-md);
+  }
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

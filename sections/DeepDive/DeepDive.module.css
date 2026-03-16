@@ -1,0 +1,275 @@
+/* sections/DeepDive/DeepDive.module.css */
+
+.deepDive {
+  position: relative;
+  background: var(--bg-base);
+  padding: 120px var(--section-px);
+  overflow: hidden;
+}
+
+/* Background effects */
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(252, 154, 101, 0.05) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  gap: 48px;
+  margin-top: 80px;
+}
+
+/* Base Card Styles */
+.card {
+  position: relative;
+  background: var(--bg-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-2xl);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  transition: all 0.4s var(--ease);
+  overflow: hidden;
+  min-width: 400px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-strong);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.2),
+    0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.cardHeader h3 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.cardDesc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Visual Stage Styles */
+.visualStage {
+  height: 280px;
+  background: #08080a;
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* 1. Semantic Parser Styles */
+.parserWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  gap: 16px;
+}
+
+.parserText {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: var(--bg-2);
+  padding: 16px 24px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-2);
+  width: 100%;
+  text-align: center;
+}
+
+.parserConnect {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parserConnect :global(.material-icons) {
+  font-size: 18px;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-dim);
+}
+
+.parserCode {
+  background: #020203;
+  border-radius: var(--r-lg);
+  padding: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-3);
+  width: 100%;
+  position: relative;
+}
+
+.parserCode::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.codeKeyword { color: #ff7b72; }
+.codeFunc { color: #d2a8ff; }
+.codeString { color: #a5d6ff; }
+
+/* 2. Continuous Auditor Styles */
+.auditorViewport {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.docCarousel {
+  display: flex;
+  gap: 16px;
+  position: absolute;
+  left: 0;
+}
+
+.docItem {
+  width: 90px;
+  height: 120px;
+  background: var(--bg-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 8px;
+  position: relative;
+  box-shadow: var(--shadow-2);
+}
+
+.docLine {
+  height: 2px;
+  background: var(--text-disabled);
+  border-radius: 2px;
+  width: 80%;
+}
+
+.scanBeam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 20px var(--accent);
+  z-index: 10;
+  left: 50%;
+}
+
+/* 3. Evidence Ledger Styles */
+.ledgerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 70%;
+}
+
+.ledgerBlock {
+  aspect-ratio: 1;
+  background: var(--bg-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: var(--shadow-1);
+  transition: all 0.3s var(--ease);
+}
+
+.ledgerBlock :global(.material-icons) {
+  font-size: 16px;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.blockPulse {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  opacity: 0;
+}
+
+.ledgerTimestamp {
+  position: absolute;
+  bottom: -15px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .card {
+    min-width: unset;
+  }
+}

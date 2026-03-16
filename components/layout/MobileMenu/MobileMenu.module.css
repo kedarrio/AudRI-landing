@@ -1,0 +1,83 @@
+/* components/layout/MobileMenu/MobileMenu.module.css */
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0.5s;
+}
+
+.active {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+
+.active .backdrop {
+  opacity: 1;
+}
+
+.mobileOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 85vw;
+  background: var(--bg-base);
+  border-left: 1px solid var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  padding: 100px var(--sp-8);
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.active .mobileOverlay {
+  transform: translateX(0);
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: var(--sp-6);
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.mobileLinks a {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 6vw, 32px);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.mobileLinks a:hover {
+  color: var(--accent);
+}

@@ -1,0 +1,3864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuDRI — Audit Realtime Intelligence</title>
+    <meta name="description"
+        content="AuDRI turns your SOPs and regulatory manuals into a live rules engine—validating every claim file in real time.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0e0e11;
+            --bg-1: #141418;
+            --bg-2: #1a1a1f;
+            --bg-3: #212127;
+            --bg-4: #282830;
+            --bg-5: #303038;
+            --glass-0: rgba(255, 255, 255, 0.02);
+            --glass-1: rgba(255, 255, 255, 0.04);
+            --glass-2: rgba(255, 255, 255, 0.06);
+            --glass-3: rgba(255, 255, 255, 0.09);
+            --glass-4: rgba(255, 255, 255, 0.13);
+            --accent: #fc9a65;
+            --accent-dim: rgba(252, 154, 101, 0.18);
+            --accent-glow: rgba(252, 154, 101, 0.06);
+            --success: #4ade80;
+            --success-dim: rgba(74, 222, 128, 0.15);
+            --warning: #fbbf24;
+            --warning-dim: rgba(251, 191, 36, 0.15);
+            --error: #f87171;
+            --error-dim: rgba(248, 113, 113, 0.15);
+            --info: #60a5fa;
+            --info-dim: rgba(96, 165, 250, 0.15);
+            --text-primary: rgba(255, 255, 255, 0.92);
+            --text-secondary: rgba(255, 255, 255, 0.55);
+            --text-tertiary: rgba(255, 255, 255, 0.45);
+            --text-disabled: rgba(255, 255, 255, 0.20);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --border-default: rgba(255, 255, 255, 0.09);
+            --border-strong: rgba(255, 255, 255, 0.15);
+            --border-accent: rgba(252, 154, 101, 0.40);
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --sp-1: 4px;
+            --sp-2: 8px;
+            --sp-3: 12px;
+            --sp-4: 16px;
+            --sp-5: 20px;
+            --sp-6: 24px;
+            --sp-8: 32px;
+            --sp-10: 40px;
+            --sp-12: 48px;
+            --sp-16: 64px;
+            --sp-20: 80px;
+            --sp-24: 96px;
+            --r-xs: 4px;
+            --r-sm: 6px;
+            --r-md: 10px;
+            --r-lg: 14px;
+            --r-xl: 20px;
+            --r-2xl: 28px;
+            --r-full: 9999px;
+            --blur-sm: blur(8px);
+            --blur-md: blur(16px);
+            --blur-lg: blur(28px);
+            --blur-xl: blur(48px);
+            --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+            --shadow-3: 0 10px 30px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.4);
+            --shadow-4: 0 24px 64px rgba(0, 0, 0, 0.7), 0 8px 16px rgba(0, 0, 0, 0.5);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.038;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.015;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            background: rgba(8, 8, 9, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: border-color 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+
+        body.nav-scrolled nav {
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .logo-brand {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-mark {
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            border-radius: var(--r-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(252, 154, 101, 0.2);
+        }
+
+        .wordmark {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .wordmark .audri {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .wordmark .tagline {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-top: 3px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: var(--r-sm);
+            transition: all 0.15s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: var(--glass-2);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+            background: var(--glass-1);
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #000;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 26px;
+            border-radius: var(--r-md);
+            text-decoration: none;
+            transition: all 0.2s var(--ease);
+        }
+
+        .btn-cta:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 4px 16px rgba(252, 154, 101, 0.28);
+            transform: translateY(-1px);
+        }
+
+        #hero {
+            min-height: 100svh;
+            background: var(--bg-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 24px 60px;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(252, 154, 101, 0.08) 0%, transparent 65%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: linear-gradient(var(--border-subtle) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+            background-size: 64px 64px;
+            opacity: 0.5;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 0%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 0%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .eyebrow-badge {
+            opacity: 0;
+            animation: fadeUp 0.6s var(--ease) 0.1s forwards;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-dim);
+            border: 1px solid var(--border-accent);
+            border-radius: var(--r-full);
+            padding: 5px 14px;
+        }
+
+        .eyebrow-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        .eyebrow-text {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .hero-title {
+            opacity: 0;
+            animation: fadeUp 0.75s var(--ease) 0.2s forwards;
+            font-family: var(--font-serif);
+            font-size: clamp(32px, 4.5vw, 64px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
+            color: var(--text-primary);
+            margin-bottom: 0;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-title .italic {
+            font-style: italic;
+            color: var(--accent);
+            background: linear-gradient(110deg, var(--accent) 0%, #ffd4b3 40%, var(--accent) 60%, #fc9a65 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer-text 4s linear infinite 1.5s;
+        }
+
+        @keyframes shimmer-text {
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        .hero-sub {
+            opacity: 0;
+            animation: fadeUp 0.75s var(--ease) 0.38s forwards;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 560px;
+            margin: 24px auto 0;
+        }
+
+        .cta-row {
+            opacity: 0;
+            animation: fadeUp 0.75s var(--ease) 0.52s forwards;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 26px;
+            border-radius: var(--r-lg);
+            text-decoration: none;
+            transition: all 0.25s var(--ease);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 8px 32px rgba(252, 154, 101, 0.22);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border-strong);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 26px;
+            border-radius: var(--r-lg);
+            text-decoration: none;
+            transition: all 0.25s var(--ease);
+        }
+
+        .btn-ghost:hover {
+            background: var(--glass-2);
+            color: var(--text-primary);
+        }
+
+        .trust-strip {
+            opacity: 0;
+            animation: fadeUp 0.75s var(--ease) 0.66s forwards;
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            letter-spacing: 0.05em;
+        }
+
+        .trust-sep {
+            color: var(--border-strong);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 2.5s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        /* Hero Dashboard Mockup */
+        .hero-dashboard-wrapper {
+            opacity: 0;
+            animation: fadeUp 1s var(--ease) 0.8s forwards;
+            margin-top: 64px;
+            perspective: 1200px;
+            width: 100%;
+            max-width: 1000px;
+            z-index: 2;
+        }
+
+        .hero-dashboard {
+            background: var(--bg-2);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--r-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-4);
+            transform: rotateX(8deg) translateY(0);
+            transition: transform 0.1s ease-out;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 24px;
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+        }
+
+        .dash-sidebar {
+            border-right: 1px solid var(--border-subtle);
+            padding-right: 20px;
+        }
+
+        .dash-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .dash-nav-item.active {
+            background: var(--glass-2);
+            color: var(--accent);
+        }
+
+        .dash-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dash-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .mini-stat {
+            background: var(--glass-1);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .mini-stat-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .mini-stat-val {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .dash-graph {
+            height: 160px;
+            background: var(--bg-base);
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .graph-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .graph-path {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .graph-fill {
+            fill: url(#graph-gradient);
+            opacity: 0.1;
+        }
+
+        /* Aurora Glow Orbs */
+        .orb-1 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(252, 154, 101, 0.12) 0%, transparent 70%);
+            top: -200px;
+            left: -100px;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orb-drift-1 18s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.07) 0%, transparent 70%);
+            bottom: -150px;
+            right: -80px;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orb-drift-2 22s ease-in-out infinite;
+        }
+
+        @keyframes orb-drift-1 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(60px, -40px) scale(1.08);
+            }
+
+            66% {
+                transform: translate(-30px, 50px) scale(0.95);
+            }
+        }
+
+        @keyframes orb-drift-2 {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            40% {
+                transform: translate(-50px, 30px) scale(1.06);
+            }
+
+            70% {
+                transform: translate(40px, -60px) scale(0.97);
+            }
+        }
+
+        /* Problem Section */
+        #problem {
+            background: var(--bg-1);
+            padding: 88px 24px;
+            position: relative;
+        }
+
+        .problem-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .problem-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .problem-eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        .problem-content h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(22px, 2.8vw, 38px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-top: 16px;
+        }
+
+        .problem-content p {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-top: 16px;
+        }
+
+        .problem-items {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .problem-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .problem-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            background: var(--error-dim);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            border-radius: var(--r-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--error);
+            font-size: 13px;
+        }
+
+        .problem-item-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--error);
+        }
+
+        .problem-item-desc {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-top: 4px;
+        }
+
+        .problem-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: var(--glass-1);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: var(--blur-md);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--r-lg);
+            padding: 20px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .stat-num {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 4vw, 52px);
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 8px;
+        }
+
+        .stat-num.error {
+            color: var(--error);
+        }
+
+        .stat-num.warning {
+            color: var(--warning);
+        }
+
+        .stat-num.accent {
+            color: var(--accent);
+        }
+
+        .stat-desc {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* How It Works Section */
+        #how-it-works {
+            background: var(--bg-base);
+            padding: 88px 24px;
+            position: relative;
+        }
+
+        .how-it-works-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .section-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .section-eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        .how-it-works-header h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(22px, 2.8vw, 38px);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-top: 16px;
+            line-height: 1.1;
+        }
+
+        .how-it-works-header p {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-top: 12px;
+        }
+
+        .steps-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+
+        .steps-connector {
+            position: absolute;
+            left: 21.5px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border-default) 10%, var(--border-default) 90%, transparent);
+            z-index: 0;
+        }
+
+        .step-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-num-circle {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--bg-2);
+            border: 1px solid var(--border-default);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-num-circle span {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .step-content p {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-top: 6px;
+        }
+
+        .step-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .step-tag {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            padding: 3px 10px;
+            border-radius: var(--r-full);
+            border: 1px solid var(--border-default);
+            color: var(--text-tertiary);
+            background: var(--glass-1);
+        }
+
+        /* Platform Section */
+        #platform {
+            background: var(--bg-2);
+            padding: 88px 24px;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            background-image: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 39px,
+                    rgba(255, 255, 255, 0.012) 39px,
+                    rgba(255, 255, 255, 0.012) 40px);
+        }
+
+        .platform-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .platform-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 56px;
+        }
+
+        .dashboard-wrapper {
+            background: var(--bg-1);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-4);
+        }
+
+        .browser-chrome {
+            padding: 10px 14px;
+            background: var(--bg-3);
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .browser-url {
+            flex: 1;
+            max-width: 320px;
+            margin: 0 auto;
+            background: var(--glass-1);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--r-full);
+            padding: 4px 14px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        .dashboard-layout {
+            display: flex;
+            height: 480px;
+        }
+
+        .sidebar {
+            width: 200px;
+            flex-shrink: 0;
+            background: var(--bg-2);
+            border-right: 1px solid var(--border-subtle);
+            padding: 16px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar-label {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            padding: 0 8px;
+            margin-bottom: 10px;
+        }
+
+        .tab-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--r-md);
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s;
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .tab-button i {
+            font-size: 18px;
+        }
+
+        .tab-button.active {
+            background: var(--glass-2);
+            color: var(--text-primary);
+            border: 1px solid var(--border-default);
+        }
+
+        .tab-label {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tab-sublabel {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-tertiary);
+            margin-top: 1px;
+        }
+
+        .content-pane {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dashboard-panel {
+            display: none;
+            height: 100%;
+            overflow-y: auto;
+            padding: 18px;
+        }
+
+        /* Section Divider Glows */
+        #problem::before,
+        #how-it-works::before,
+        #platform::before,
+        #who::before,
+        #demo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            max-width: 600px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(252, 154, 101, 0.25), transparent);
+            pointer-events: none;
+        }
+
+        /* Scrolling Accent Line */
+        #scroll-line {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 1.5px;
+            height: 0%;
+            background: linear-gradient(to bottom, var(--accent), rgba(252, 154, 101, 0.2));
+            z-index: 999;
+            pointer-events: none;
+            transition: height 0.1s linear;
+            border-radius: 0 1px 1px 0;
+        }
+
+        /* Glassmorphism Shimmer */
+        .glass-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+            pointer-events: none;
+        }
+
+        /* Stat Numbers Pulse-in */
+        .stat-number {
+            display: inline-block;
+            transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
+            opacity: 0;
+            transform: scale(0.85);
+        }
+
+        .reveal.visible .stat-number {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Demo Section */
+        #demo {
+            background: var(--bg-1);
+            padding: 100px 24px;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .demo-bg-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(252, 154, 101, 0.07) 0%, transparent 60%);
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .demo-container {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .demo-header h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(26px, 3.5vw, 52px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+            line-height: 1.05;
+            margin-top: 20px;
+        }
+
+        .demo-header h2 span {
+            display: block;
+        }
+
+        .demo-header h2 .italic {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .demo-subtext {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 18px auto 0;
+        }
+
+        .email-capture {
+            margin-top: 32px;
+            display: flex;
+            gap: 8px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-input {
+            flex: 1;
+            background: var(--glass-1);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-md);
+            padding: 11px 16px;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s;
+            background: var(--glass-1);
+        }
+
+        .email-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .email-input:focus {
+            border-color: var(--border-accent);
+        }
+
+        .btn-submit {
+            background: var(--accent);
+            color: #000;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 11px 22px;
+            border-radius: var(--r-md);
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s var(--ease);
+        }
+
+        .btn-submit:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        #demoSuccess {
+            display: none;
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--success);
+        }
+
+        .demo-trust-line {
+            margin-top: 20px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+        }
+
+        .demo-proof {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .proof-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .proof-num {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .proof-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        @media (max-width: 560px) {
+            .email-capture {
+                flex-direction: column;
+            }
+
+            .demo-proof {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-base);
+            border-top: 1px solid var(--border-subtle);
+            padding: 48px 24px 32px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-brand .logo-brand {
+            transform: scale(0.8);
+            transform-origin: left center;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-top: 10px;
+            max-width: 260px;
+            line-height: 1.6;
+        }
+
+        .footer-contact {
+            margin-top: 12px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links-row {
+            display: flex;
+            gap: 36px;
+        }
+
+        .footer-col-label {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy,
+        .footer-designed {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+        }
+
+        /* Feature Deep Dive & Technical Visuals */
+        #deep-dive {
+            background: var(--bg-1);
+            padding: 88px 24px;
+            position: relative;
+        }
+
+        .visual-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .visual-card {
+            background: var(--bg-2);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-xl);
+            padding: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .visual-header h3 {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .visual-header p {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+
+        .stage-container {
+            height: 300px;
+            background: var(--bg-base);
+            border-radius: var(--r-lg);
+            position: relative;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .weaver-node {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .validator-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            width: 80%;
+            height: 80%;
+        }
+
+        .grid-cell {
+            aspect-ratio: 1;
+            background: var(--glass-1);
+            border-radius: 4px;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid-cell.active {
+            border-color: var(--accent-dim);
+            background: var(--accent-glow);
+        }
+
+        .grid-cell.pass {
+            border-color: var(--success);
+            background: var(--success-dim);
+        }
+
+        .grid-cell.fail {
+            border-color: var(--error);
+            background: var(--error-dim);
+        }
+
+        .grid-cell i {
+            font-size: 12px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s;
+        }
+
+        .grid-cell.pass i,
+        .grid-cell.fail i {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Regulatory Intelligence */
+        #regulatory {
+            background: var(--bg-base);
+            padding: 88px 24px;
+        }
+
+        .reg-split {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .reg-code-box {
+            background: #000;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--r-lg);
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.6;
+            box-shadow: var(--shadow-4);
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .code-tab {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .code-lang {
+            color: var(--text-tertiary);
+        }
+
+        .syntax-keyword {
+            color: #ff7b72;
+        }
+
+        .syntax-func {
+            color: #d2a8ff;
+        }
+
+        .syntax-string {
+            color: #a5d6ff;
+        }
+
+        .syntax-comment {
+            color: #8b949e;
+        }
+
+        .reg-content h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(22px, 2.8vw, 38px);
+            margin-bottom: 18px;
+        }
+
+        .reg-content p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        /* Comparison Section */
+        #comparison {
+            background: var(--bg-1);
+            padding: 88px 24px;
+        }
+
+        .comp-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: var(--border-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--r-xl);
+            overflow: hidden;
+        }
+
+        .comp-col {
+            background: var(--bg-2);
+            padding: 40px 30px;
+        }
+
+        .comp-col.highlight {
+            background: var(--bg-3);
+            position: relative;
+        }
+
+        .comp-col.highlight::after {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-family: var(--font-mono);
+            font-size: 8px;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            border: 1px solid var(--border-accent);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .comp-header {
+            margin-bottom: 32px;
+        }
+
+        .comp-header h3 {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .comp-header .title {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-top: 6px;
+        }
+
+        .comp-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .comp-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .comp-item i {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .comp-item.negative i {
+            color: var(--error);
+        }
+
+        .comp-item.positive i {
+            color: var(--success);
+        }
+
+        .comp-item-text b {
+            display: block;
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .comp-item-text span {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+
+
+        /* Who It's For Section */
+        #who {
+            background: var(--bg-base);
+            padding: 88px 24px;
+            position: relative;
+        }
+
+        .who-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .who-header {
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .persona-card {
+            background: var(--glass-1);
+            backdrop-filter: var(--blur-md);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-lg);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s var(--ease);
+        }
+
+        .persona-card:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 10px 30px rgba(252, 154, 101, 0.06);
+            transform: translateY(-3px);
+        }
+
+        .persona-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+        }
+
+        .role-tag {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--r-full);
+            border: 1px solid;
+            margin-bottom: 16px;
+        }
+
+        .tag-accent {
+            color: var(--accent);
+            background: var(--accent-dim);
+            border-color: var(--border-accent);
+        }
+
+        .tag-info {
+            color: var(--info);
+            background: var(--info-dim);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .tag-success {
+            color: var(--success);
+            background: var(--success-dim);
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .persona-card h3 {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .persona-fear {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .persona-desc {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .persona-help-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+        }
+
+        .persona-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .persona-bullet {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            font-family: var(--font-sans);
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .persona-bullet::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 900px) {
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+            z-index: 300;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-base);
+            z-index: 250;
+            display: flex;
+            flex-direction: column;
+            padding: 100px 40px;
+            transform: translateX(100%);
+            transition: transform 0.5s var(--ease);
+        }
+
+        .mobile-overlay.active {
+            transform: translateX(0);
+        }
+
+        .mobile-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .mobile-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 968px) {
+
+            .visual-grid,
+            .reg-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .comp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links,
+            .btn-cta {
+                display: none;
+            }
+
+            .cta-card {
+                padding: 40px 20px;
+            }
+        }
+
+        /* ── DASHBOARD COMPONENT ── */
+        .db-wrap {
+            background: var(--bg-1);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-4);
+        }
+
+        .db-chrome {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: var(--bg-3);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .db-chrome-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .db-chrome-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .db-chrome-url {
+            flex: 1;
+            background: var(--glass-1);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--r-full);
+            height: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .db-body {
+            display: flex;
+            height: 500px;
+        }
+
+        .db-sidebar {
+            width: 200px;
+            background: var(--bg-2);
+            border-right: 1px solid var(--border-subtle);
+            padding: 16px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .db-sidebar-label {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            padding: 0 10px 6px;
+        }
+
+        .db-tab {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--r-md);
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .db-tab:hover {
+            background: var(--glass-1);
+            color: var(--text-primary);
+        }
+
+        .db-tab.active {
+            background: var(--bg-3);
+            border-color: var(--border-default);
+            color: var(--accent);
+            box-shadow: var(--shadow-1);
+        }
+
+        .db-tab-icon {
+            font-size: 18px;
+        }
+
+        .db-tab-label {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .db-tab-sub {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-tertiary);
+        }
+
+        .db-content {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .db-panel {
+            display: none;
+            height: 100%;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .db-panel.active {
+            display: block;
+        }
+
+        /* ── EXECUTIVE PANEL ── */
+        .db-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .db-kpi {
+            background: var(--bg-2);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-lg);
+            padding: 16px;
+        }
+
+        .db-kpi-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
+
+        .db-kpi-number {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .db-kpi-change {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .db-kpi-change.up {
+            color: var(--success);
+        }
+
+        .db-kpi-change.dn {
+            color: var(--error);
+        }
+
+        .db-chart {
+            display: flex;
+            align-items: stretch;
+            gap: 12px;
+            height: 140px;
+            padding: 0 10px;
+            margin-top: 20px;
+        }
+
+        .db-bar-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .db-bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--accent), rgba(252, 154, 101, 0.2));
+            border-radius: var(--r-xs) var(--r-xs) 0 0;
+            border: 1px solid var(--border-accent);
+            border-bottom: none;
+            height: 0;
+            /* Changed from 100% to 0 for scroll growth */
+            transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .db-bar-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-tertiary);
+        }
+
+        /* ── MANAGER PANEL ── */
+        .db-pills {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .db-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: var(--r-full);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            border: 1px solid;
+        }
+
+        .db-pill-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .db-pill.ok {
+            background: var(--success-dim);
+            border-color: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+        }
+
+        .db-pill.ok .db-pill-dot {
+            background: var(--success);
+        }
+
+        .db-pill.warn {
+            background: var(--warning-dim);
+            border-color: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+
+        .db-pill.warn .db-pill-dot {
+            background: var(--warning);
+        }
+
+        .db-pill.err {
+            background: var(--error-dim);
+            border-color: rgba(248, 113, 113, 0.2);
+            color: var(--error);
+        }
+
+        .db-pill.err .db-pill-dot {
+            background: var(--error);
+        }
+
+        .db-feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .db-feed-title {
+            font-family: var(--font-serif);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .db-live-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--success);
+            background: var(--success-dim);
+            padding: 3px 8px;
+            border-radius: var(--r-full);
+        }
+
+        .db-live-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        .db-manager-grid {
+            display: grid;
+            grid-template-columns: 1fr 140px;
+            gap: 16px;
+        }
+
+        .db-feed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: #000;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--r-md);
+            padding: 12px;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .db-feed-list::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.8));
+            pointer-events: none;
+        }
+
+        .db-feed-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 0;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-secondary);
+            border: none;
+        }
+
+        .db-feed-item.passed {
+            color: var(--success);
+        }
+
+        .db-feed-item.warning {
+            color: var(--warning);
+        }
+
+        .db-feed-item.failed {
+            color: var(--error);
+        }
+
+        .db-feed-item.new-entry {
+            animation: db-terminal-entry 0.4s var(--ease) forwards;
+        }
+
+        @keyframes db-terminal-entry {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .db-feed-item-time {
+            margin-left: auto;
+            color: var(--text-tertiary);
+            opacity: 0.4;
+        }
+
+        .db-exceptions {
+            background: var(--bg-2);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-lg);
+            padding: 12px;
+        }
+
+        .db-exceptions-title {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 6px;
+        }
+
+        .db-exception-item {
+            margin-bottom: 10px;
+        }
+
+        .db-exception-head {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .db-exception-type {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            color: var(--error);
+        }
+
+        .db-exception-id {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .db-exception-msg {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .db-exception-link {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .db-unit-title {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
+        }
+
+        .db-unit-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .db-unit-score {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ── ANALYST PANEL ── */
+        .db-progress-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .db-progress-line {
+            position: absolute;
+            top: 14px;
+            left: calc(100% / 6);
+            right: calc(100% / 6);
+            height: 1px;
+            background: var(--border-default);
+            z-index: 0;
+        }
+
+        .db-progress-fill {
+            position: absolute;
+            top: 14px;
+            left: calc(100% / 6);
+            width: calc(200% / 3);
+            height: 1px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .db-progress-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            transform: scaleX(var(--p-fill, 0));
+            transform-origin: left;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .db-step {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .db-step-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-2);
+            border: 2px solid var(--border-default);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            transition: all 0.3s;
+        }
+
+        .db-step.active .db-step-circle {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-dim);
+            transform: scale(1.1);
+        }
+
+        .db-step.complete .db-step-circle {
+            border-color: var(--success);
+            color: var(--success);
+            background: var(--success-dim);
+        }
+
+        .db-step-label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+        }
+
+        .db-step.active .db-step-label {
+            color: var(--text-primary);
+        }
+
+        .db-upload-zone {
+            border: 2px dashed var(--border-default);
+            border-radius: var(--r-xl);
+            padding: 40px 20px;
+            text-align: center;
+            background: var(--glass-1);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .db-upload-zone:hover {
+            border-color: var(--border-accent);
+            background: var(--accent-glow);
+        }
+
+        .db-upload-icon {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .db-upload-title {
+            font-family: var(--font-serif);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .db-upload-sub {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-tertiary);
+        }
+
+        .db-start-btn {
+            margin-top: 16px;
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: #000;
+            border-radius: var(--r-md);
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .db-start-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .db-audit-progress {
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        .db-audit-icon {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            animation: rotate 2s linear infinite;
+        }
+
+        .db-audit-title {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .db-audit-sub {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+        }
+
+        .db-bar-track {
+            width: 100%;
+            height: 6px;
+            background: var(--glass-2);
+            border-radius: var(--r-full);
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .db-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s linear;
+        }
+
+        .db-pct-text {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .db-results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .db-result-card {
+            background: var(--bg-2);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-lg);
+            padding: 14px;
+            text-align: center;
+        }
+
+        .db-result-number {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .db-result-number.s {
+            color: var(--text-primary);
+        }
+
+        .db-result-number.a {
+            color: var(--warning);
+        }
+
+        .db-result-number.i {
+            color: var(--success);
+        }
+
+        .db-result-label {
+            font-family: var(--font-mono);
+            font-size: 8px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        .db-findings {
+            background: var(--bg-2);
+            border: 1px solid var(--border-default);
+            border-radius: var(--r-lg);
+            padding: 16px;
+        }
+
+        .db-findings-title {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .db-finding-row {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .db-finding-row:last-child {
+            border-bottom: none;
+        }
+
+        .db-reset-btn {
+            margin-top: 16px;
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-3);
+            color: var(--text-secondary);
+            border-radius: var(--r-md);
+            border: 1px solid var(--border-default);
+            font-family: var(--font-sans);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .db-reset-btn:hover {
+            background: var(--bg-4);
+            color: var(--text-primary);
+        }
+
+        /* ── RESPONSIVE DESIGN (Consolidated) ── */
+        @media (max-width: 900px) {
+            .db-body {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .db-sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-subtle);
+                padding: 12px 16px;
+                flex-shrink: 0;
+            }
+
+            .db-sidebar-label {
+                display: none;
+            }
+
+            .db-tab {
+                flex-shrink: 0;
+                padding: 8px 12px;
+            }
+
+            .db-tab-sub {
+                display: none;
+            }
+
+            .db-content {
+                min-height: 400px;
+            }
+
+            .db-manager-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .db-unit-panel {
+                display: none;
+            }
+
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .persona-card {
+                max-width: 700px;
+                margin: 0 auto;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+            transition-delay: var(--delay, 0ms);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.35
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-6px)
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: clamp(36px, 8vw, 52px);
+            }
+
+            .hero-sub {
+                font-size: 16px;
+            }
+
+            .cta-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-primary,
+            .btn-ghost {
+                justify-content: center;
+                display: flex;
+                text-align: center;
+            }
+
+            .trust-strip {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .trust-sep {
+                display: none;
+            }
+
+            #problem,
+            #how-it-works,
+            #platform,
+            #deep-dive,
+            #regulatory,
+            #comparison,
+            #who,
+            #demo,
+            footer {
+                padding: 80px 20px;
+            }
+
+            .problem-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .steps-connector {
+                left: 21px;
+            }
+
+            .step-num-circle {
+                width: 42px;
+                height: 42px;
+            }
+
+            .step-num-circle span {
+                font-size: 12px;
+            }
+
+            .comp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-links-row {
+                flex-direction: row;
+                gap: 32px;
+                width: 100%;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tab-sublabel {
+                display: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .problem-stats {
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 12px;
+                padding-bottom: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .stat-card {
+                min-width: 220px;
+                flex-shrink: 0;
+            }
+
+            .email-capture {
+                flex-direction: column;
+            }
+
+            .email-input,
+            .btn-submit {
+                width: 100%;
+            }
+
+            .demo-proof {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            #problem,
+            #how-it-works,
+            #platform,
+            #deep-dive,
+            #regulatory,
+            #comparison,
+            #who,
+            #demo,
+            footer {
+                padding: 60px 16px;
+            }
+
+            .wordmark .tagline {
+                display: none;
+            }
+
+            .step-tags {
+                display: none;
+            }
+
+            .browser-chrome .browser-url {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll-line"></div>
+    <nav>
+        <a href="#" class="logo-brand">
+            <div class="logo-mark">
+                <svg viewBox="0 0 24 24" fill="white" width="24" height="24">
+                    <rect x="10.5" y="2" width="3" height="20" rx="1.5" />
+                    <rect x="10.5" y="2" width="3" height="20" rx="1.5" transform="rotate(45 12 12)" />
+                    <rect x="10.5" y="2" width="3" height="20" rx="1.5" transform="rotate(90 12 12)" />
+                    <rect x="10.5" y="2" width="3" height="20" rx="1.5" transform="rotate(135 12 12)" />
+                </svg>
+            </div>
+            <div class="wordmark">
+                <span class="audri">AudRI</span>
+                <span class="tagline">Audit Realtime Intelligence</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#platform">Platform</a></li>
+            <li><a href="#deep-dive">Deep Dive</a></li>
+            <li><a href="#regulatory">Intelligence</a></li>
+            <li><a href="#who">Who It's For</a></li>
+        </ul>
+
+        <a href="#demo" class="btn-cta">Book a Demo</a>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu"><i
+                class="material-icons">menu</i></button>
+    </nav>
+
+    <header id="hero" role="banner">
+        <div class="orb-1"></div>
+        <div class="orb-2"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="eyebrow-badge">
+                <span class="eyebrow-dot"></span>
+                <span class="eyebrow-text">Now in Early Access</span>
+            </div>
+            <h1 class="hero-title">
+                <span>When the regulator opens your file,</span>
+                <span class="italic">it's already been audited.</span>
+            </h1>
+            <p class="hero-sub">
+                AuDRI turns your SOPs, regulatory manuals, and carrier guidelines into a live rules engine — validating
+                every claim file, in real time, before a regulator ever asks.
+            </p>
+            <div class="cta-row">
+                <a href="#demo" class="btn-primary" aria-label="Book a demonstration">Book a Demo</a>
+                <a href="#how-it-works" class="btn-ghost" aria-label="See how the product works">See How It Works</a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+    </header>
+
+    <main role="main">
+
+        <section id="problem">
+            <div class="problem-container">
+                <div class="problem-content reveal">
+                    <div class="problem-eyebrow">THE PROBLEM</div>
+                    <h2>95% of claims files are never audited before a regulator sees them.</h2>
+                    <p>Insurance carriers and TPAs are required to prove — to state regulators, to carrier clients, and
+                        to their own leadership — that every claim was handled correctly. The industry's current
+                        approach is fundamentally broken.</p>
+                    <div class="problem-items">
+                        <div class="problem-item">
+                            <div class="problem-icon">✕</div>
+                            <div>
+                                <div class="problem-item-label">COVERAGE GAP</div>
+                                <p class="problem-item-desc">QA teams manually review 3–5% of claims. The other 95–97%
+                                    are never examined before a regulator opens them.</p>
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div class="problem-icon">✕</div>
+                            <div>
+                                <div class="problem-item-label">TIMING GAP</div>
+                                <p class="problem-item-desc">Reviews happen after claims close. By then, missing
+                                    documentation can't be corrected while the claim is still active.</p>
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div class="problem-icon">✕</div>
+                            <div>
+                                <div class="problem-item-label">CONSISTENCY GAP</div>
+                                <p class="problem-item-desc">Human reviewers interpret SOPs differently. The same file
+                                    can pass one reviewer and fail another.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="problem-stats reveal" style="--delay: 150ms">
+                    <div class="stat-card glass-card">
+                        <div class="stat-label">TYPICAL QA COVERAGE</div>
+                        <div class="stat-num error stat-number">3–5%</div>
+                        <p class="stat-desc">of claim files reviewed before a market conduct audit</p>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-label">POTENTIAL FINE EXPOSURE</div>
+                        <div class="stat-num warning stat-number">$400K+</div>
+                        <p class="stat-desc">in fines from a single 40% finding rate on 200 sampled files at $5,000 per
+                            violation</p>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-label">AT-RISK CARRIER REVENUE</div>
+                        <div class="stat-num accent stat-number">$1M–$10M</div>
+                        <p class="stat-desc">annual revenue lost when one carrier contract is terminated after a failed
+                            audit</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="how-it-works-header reveal">
+                <div class="section-eyebrow">HOW IT WORKS</div>
+                <h2>Five steps from documents to audit-ready.</h2>
+                <p>Connect once. AuDRI extracts your rules, validates every file, and hands you the evidence package
+                    before the regulator calls.</p>
+            </div>
+            <div class="steps-container">
+                <div class="steps-connector"></div>
+
+                <div class="step-row reveal" style="--delay: 0ms">
+                    <div class="step-num-circle"><span>01</span></div>
+                    <div class="step-content">
+                        <h3>Connect</h3>
+                        <p>AuDRI integrates with your existing document storage and claims systems. No migration
+                            required. Flat file exports or API — either works.</p>
+                        <div class="step-tags">
+                            <span class="step-tag">AWS S3</span><span class="step-tag">SharePoint</span><span
+                                class="step-tag">Azure</span><span class="step-tag">On-Premise</span><span
+                                class="step-tag">API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-row reveal" style="--delay: 100ms">
+                    <div class="step-num-circle"><span>02</span></div>
+                    <div class="step-content">
+                        <h3>Extract</h3>
+                        <p>Upload SOPs, regulatory manuals, carrier guidelines. AuDRI automatically extracts embedded
+                            business rules — compliance criteria, timeliness requirements, documentation standards — and
+                            converts them into executable logic.</p>
+                        <div class="step-tags">
+                            <span class="step-tag">SOPs</span><span class="step-tag">Regulatory Manuals</span><span
+                                class="step-tag">Underwriting Guidelines</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-row reveal" style="--delay: 200ms">
+                    <div class="step-num-circle"><span>03</span></div>
+                    <div class="step-content">
+                        <h3>Validate</h3>
+                        <p>The rules engine runs against every claim file, continuously. Every file is checked against
+                            every applicable rule, for the specific state where the claim was filed. Failures flagged
+                            instantly with clear explanations.</p>
+                        <div class="step-tags">
+                            <span class="step-tag">Workers' Comp</span><span class="step-tag">General
+                                Liability</span><span class="step-tag">Commercial Auto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-row reveal" style="--delay: 300ms">
+                    <div class="step-num-circle"><span>04</span></div>
+                    <div class="step-content">
+                        <h3>Monitor</h3>
+                        <p>The Audit Oversight Dashboard shows live compliance status. Drill down from executive KPIs to
+                            individual claim files. Filter by carrier client, line of business, state, adjuster, or time
+                            period.</p>
+                        <div class="step-tags">
+                            <span class="step-tag">Real-Time</span><span class="step-tag">Multi-Carrier</span><span
+                                class="step-tag">Multi-State</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-row reveal" style="--delay: 400ms">
+                    <div class="step-num-circle"><span>05</span></div>
+                    <div class="step-content">
+                        <h3>Defend</h3>
+                        <p>Generate a <span
+                                style="color: var(--accent); font-weight: 500; display: inline-flex; align-items: center; gap: 4px;">Market
+                                Conduct Readiness Report <i class="material-icons"
+                                    style="font-size: 14px;">insert_drive_file</i></span> at any time — the pre-packaged
+                            evidence package that proves your process before a regulator asks. When the audit lands,
+                            you're reconciling outputs, not scrambling.</p>
+                        <div class="step-tags">
+                            <span class="step-tag">NAIC Standards</span><span class="step-tag">One-Click
+                                Report</span><span class="step-tag">Audit-Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="platform">
+            <div class="platform-container">
+                <div class="platform-header reveal">
+                    <div class="section-eyebrow">THE PLATFORM</div>
+                    <h2>Three roles. One system. Total coverage.</h2>
+                    <p>Every stakeholder in your organization sees exactly what they need — and nothing they don't.</p>
+                </div>
+
+                <div class="db-wrap reveal" style="--delay:150ms">
+
+                    <!-- Browser chrome -->
+                    <div class="db-chrome">
+                        <div class="db-chrome-dots">
+                            <div class="db-chrome-dot" style="background:#f87171"></div>
+                            <div class="db-chrome-dot" style="background:#fbbf24"></div>
+                            <div class="db-chrome-dot" style="background:#4ade80"></div>
+                        </div>
+                        <div class="db-chrome-url"></div>
+                    </div>
+
+                    <!-- Dashboard body -->
+                    <div class="db-body">
+
+                        <!-- Sidebar -->
+                        <div class="db-sidebar">
+                            <div class="db-sidebar-label">Perspectives</div>
+                            <button class="db-tab active" data-panel="db-executive"
+                                aria-label="Switch to Executive Overview">
+                                <span class="material-icons db-tab-icon">dashboard</span>
+                                <div>
+                                    <div class="db-tab-label">Executive</div>
+                                    <div class="db-tab-sub">Overview</div>
+                                </div>
+                            </button>
+                            <button class="db-tab" data-panel="db-manager" aria-label="Switch to Manager View">
+                                <span class="material-icons db-tab-icon">group</span>
+                                <div>
+                                    <div class="db-tab-label">Manager</div>
+                                    <div class="db-tab-sub">Live Activity</div>
+                                </div>
+                            </button>
+                            <button class="db-tab" data-panel="db-analyst" aria-label="Switch to Analyst Workflow">
+                                <span class="material-icons db-tab-icon">assignment</span>
+                                <div>
+                                    <div class="db-tab-label">Analyst</div>
+                                    <div class="db-tab-sub">Workflow</div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="db-content">
+
+                            <!-- Executive panel -->
+                            <div id="db-executive" class="db-panel active">
+                                <div class="db-kpi-grid">
+                                    <div class="db-kpi">
+                                        <div class="db-kpi-label">Financial Leakage</div>
+                                        <div class="db-kpi-number">$2.14M</div>
+                                        <div class="db-kpi-change dn">↓ 14.2%</div>
+                                    </div>
+                                    <div class="db-kpi">
+                                        <div class="db-kpi-label">Compliance Rate</div>
+                                        <div class="db-kpi-number">99.2%</div>
+                                        <div class="db-kpi-change up">↑ 1.4%</div>
+                                    </div>
+                                    <div class="db-kpi">
+                                        <div class="db-kpi-label">Reserve Accuracy</div>
+                                        <div class="db-kpi-number">96.8%</div>
+                                        <div class="db-kpi-change up">↑ 2.1%</div>
+                                    </div>
+                                    <div class="db-kpi">
+                                        <div class="db-kpi-label">Manual Effort</div>
+                                        <div class="db-kpi-number">−82%</div>
+                                        <div class="db-kpi-change up">↓ 4.0%</div>
+                                    </div>
+                                </div>
+                                <div class="db-chart" id="executive-chart">
+                                    <div class="db-bar-wrap">
+                                        <div class="db-bar" data-h="38%"></div>
+                                        <div class="db-bar-label">Q1</div>
+                                    </div>
+                                    <div class="db-bar-wrap">
+                                        <div class="db-bar" data-h="55%"></div>
+                                        <div class="db-bar-label">Q2</div>
+                                    </div>
+                                    <div class="db-bar-wrap">
+                                        <div class="db-bar" data-h="72%"></div>
+                                        <div class="db-bar-label">Q3</div>
+                                    </div>
+                                    <div class="db-bar-wrap">
+                                        <div class="db-bar" data-h="90%"></div>
+                                        <div class="db-bar-label">Now</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Manager panel -->
+                            <div id="db-manager" class="db-panel">
+                                <div class="db-pills">
+                                    <div class="db-pill ok">
+                                        <div class="db-pill-dot"></div>Active: 14
+                                    </div>
+                                    <div class="db-pill warn">
+                                        <div class="db-pill-dot"></div>Alerts: 3
+                                    </div>
+                                    <div class="db-pill err">
+                                        <div class="db-pill-dot"></div>Exceptions: 9
+                                    </div>
+                                </div>
+                                <div class="db-feed-header">
+                                    <div class="db-feed-title">Live Activity</div>
+                                    <div class="db-live-badge">
+                                        <div class="db-live-dot"></div>Live
+                                    </div>
+                                </div>
+                                <div class="db-manager-grid">
+                                    <div>
+                                        <div class="db-feed-list" id="db-feed"></div>
+                                        <div class="db-exceptions" style="margin-top:12px">
+                                            <div class="db-exceptions-title">Exceptions</div>
+                                            <div id="db-exceptions-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="db-unit-panel">
+                                        <div class="db-unit-title">Unit Perf.</div>
+                                        <div class="db-unit-row">
+                                            <div class="db-unit-name">Northeast</div>
+                                            <div class="db-unit-score">98%</div>
+                                        </div>
+                                        <div class="db-unit-row">
+                                            <div class="db-unit-name">Southeast</div>
+                                            <div class="db-unit-score">92%</div>
+                                        </div>
+                                        <div class="db-unit-row">
+                                            <div class="db-unit-name">Western</div>
+                                            <div class="db-unit-score">97%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Analyst panel -->
+                            <div id="db-analyst" class="db-panel">
+                                <div class="db-progress-wrap">
+                                    <div class="db-progress-line"></div>
+                                    <div class="db-progress-fill" id="db-prog-fill"></div>
+                                    <div class="db-step active" id="db-s1">
+                                        <div class="db-step-circle">1</div>
+                                        <div class="db-step-label">Upload</div>
+                                    </div>
+                                    <div class="db-step" id="db-s2">
+                                        <div class="db-step-circle">2</div>
+                                        <div class="db-step-label">Audit</div>
+                                    </div>
+                                    <div class="db-step" id="db-s3">
+                                        <div class="db-step-circle">3</div>
+                                        <div class="db-step-label">Results</div>
+                                    </div>
+                                </div>
+
+                                <div id="db-upload-stage">
+                                    <div class="db-upload-zone">
+                                        <span class="material-icons db-upload-icon">upload_file</span>
+                                        <div class="db-upload-title">Drop files to analyze</div>
+                                        <div class="db-upload-sub">PDF · DOCX · XLSX · Scanned Images</div>
+                                    </div>
+                                    <button class="db-start-btn" onclick="dbStartAudit()">Start Audit</button>
+                                </div>
+
+                                <div id="db-audit-stage" style="display:none">
+                                    <div class="db-audit-progress">
+                                        <span class="material-icons db-audit-icon">settings</span>
+                                        <div class="db-audit-title">Extracting Rules…</div>
+                                        <div class="db-audit-sub">Processing 512 claims</div>
+                                        <div class="db-bar-track">
+                                            <div class="db-bar-fill" id="db-audit-bar"></div>
+                                        </div>
+                                        <div class="db-pct-text"><span id="db-audit-pct">0</span>% complete</div>
+                                    </div>
+                                </div>
+
+                                <div id="db-results-stage" style="display:none">
+                                    <div class="db-results-grid">
+                                        <div class="db-result-card">
+                                            <div class="db-result-number s">512</div>
+                                            <div class="db-result-label">Files Audited</div>
+                                        </div>
+                                        <div class="db-result-card">
+                                            <div class="db-result-number a">7</div>
+                                            <div class="db-result-label">Flags Found</div>
+                                        </div>
+                                        <div class="db-result-card">
+                                            <div class="db-result-number i">98.6%</div>
+                                            <div class="db-result-label">Pass Rate</div>
+                                        </div>
+                                    </div>
+                                    <div class="db-findings">
+                                        <div class="db-findings-title">Key Findings</div>
+                                        <div class="db-finding-row">✓ Auto Liability compliance improved to 99%</div>
+                                        <div class="db-finding-row">⚠ 7 cases require manual review</div>
+                                        <div class="db-finding-row">→ Reserve accuracy trending +2.1%</div>
+                                    </div>
+                                    <button class="db-reset-btn" onclick="dbResetAnalyst()">Reset Demo</button>
+                                </div>
+                            </div>
+
+                        </div><!-- /db-content -->
+                    </div><!-- /db-body -->
+                </div><!-- /db-wrap -->
+                <div class="reveal"
+                    style="text-align: center; margin-top: 16px; opacity: 0.5; font-size: 11px; font-family: var(--font-mono);">
+                    Disclaimer: This is a functional preview of the AuDRI platform. Some features may be simulated for
+                    demonstration purposes.
+                </div>
+            </div>
+        </section>
+
+        <section id="deep-dive">
+            <div class="platform-container">
+                <div class="platform-header reveal" style="margin-bottom: 48px;">
+                    <div class="section-eyebrow">CORE TECHNOLOGY</div>
+                    <h2>Built for throughput. Engineered for precision.</h2>
+                    <p>The infrastructure that powers AuDRI is built to handle millions of claim files without breaking
+                        a sweat, ensuring every validation is deterministic and absolute.</p>
+                </div>
+            </div>
+            <div class="visual-grid">
+                <div class="visual-card reveal">
+                    <div class="visual-header">
+                        <h3>Data Weaver</h3>
+                        <p>Unifying disparate data streams—S3, APIs, and manual uploads—into a singular, normalized
+                            audit ledger in milliseconds.</p>
+                    </div>
+                    <div class="stage-container" id="weaver-stage">
+                        <!-- Nodes injected via JS -->
+                    </div>
+                </div>
+                <div class="visual-card reveal" style="--delay: 150ms">
+                    <div class="visual-header">
+                        <h3>Logic Validator</h3>
+                        <p>Every rule is tested against every file. Our engine validates thousands of compliance points
+                            across your entire portfolio, live.</p>
+                    </div>
+                    <div class="stage-container" id="validator-stage">
+                        <div class="validator-grid" id="validator-grid">
+                            <!-- Cells injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="regulatory">
+            <div class="platform-container">
+                <div class="platform-header reveal" style="text-align: left; margin-left: 0;">
+                    <div class="section-eyebrow" style="justify-content: flex-start;">REGULATORY INTELLIGENCE</div>
+                    <h2>From static SOPs to executable logic.</h2>
+                    <p>Most compliance failures happen because rules are trapped in 400-page PDF manuals. AuDRI maps
+                        human-readable language directly to machine-verifiable code.</p>
+                    <div class="problem-items">
+                        <div class="problem-item">
+                            <div class="problem-icon"
+                                style="background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent);">
+                                ✓</div>
+                            <div>
+                                <div class="problem-item-label" style="color: var(--text-primary);">Natural Language
+                                    Mapping</div>
+                                <p class="problem-item-desc">Trace every rule back to the specific paragraph in your SOP
+                                    or state regulation.</p>
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div class="problem-icon"
+                                style="background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent);">
+                                ✓</div>
+                            <div>
+                                <div class="problem-item-label" style="color: var(--text-primary);">Version Controlled
+                                    Rules</div>
+                                <p class="problem-item-desc">Update a rule once, and it propagates across all active
+                                    claim files instantly.</p>
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div class="problem-icon"
+                                style="background: var(--accent-dim); color: var(--accent); border-color: var(--border-accent);">
+                                ✓</div>
+                            <div>
+                                <div class="problem-item-label" style="color: var(--text-primary);">Automated Evidence
+                                    Trails</div>
+                                <p class="problem-item-desc">Generate time-stamped logs of every validation for ironclad
+                                    audit defense.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison">
+            <div class="comp-container">
+                <div class="how-it-works-header reveal">
+                    <div class="section-eyebrow">THE EVOLUTION</div>
+                    <h2>Stop sampling. Start validating.</h2>
+                    <p>Traditional QA is a defensive posture. AuDRI is an offensive strategy for compliance and
+                        operational excellence.</p>
+                </div>
+
+                <div class="comp-grid reveal" style="--delay: 100ms">
+                    <div class="comp-col">
+                        <div class="comp-header">
+                            <h3>TRADITIONAL QA</h3>
+                            <div class="title">Manual Sampling</div>
+                        </div>
+                        <ul class="comp-list">
+                            <li class="comp-item negative">
+                                <i class="material-icons">close</i>
+                                <div class="comp-item-text">
+                                    <b>3-5% Coverage</b>
+                                    <span>You hope the regulator doesn't pick the 95% you didn't see.</span>
+                                </div>
+                            </li>
+                            <li class="comp-item negative">
+                                <i class="material-icons">close</i>
+                                <div class="comp-item-text">
+                                    <b>Post-hoc Review</b>
+                                    <span>Errors are found months after closure when they can't be fixed.</span>
+                                </div>
+                            </li>
+                            <li class="comp-item negative">
+                                <i class="material-icons">close</i>
+                                <div class="comp-item-text">
+                                    <b>Subjective Results</b>
+                                    <span>Different reviewers have different interpretations of "correct".</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="comp-col highlight">
+                        <div class="comp-header">
+                            <h3>AUDRI PLATFORM</h3>
+                            <div class="title">Continuous Audit</div>
+                        </div>
+                        <ul class="comp-list">
+                            <li class="comp-item positive">
+                                <i class="material-icons">check</i>
+                                <div class="comp-item-text">
+                                    <b>100% Coverage</b>
+                                    <span>Every single file is audited against every single rule, every time.</span>
+                                </div>
+                            </li>
+                            <li class="comp-item positive">
+                                <i class="material-icons">check</i>
+                                <div class="comp-item-text">
+                                    <b>Real-time Validation</b>
+                                    <span>Fix compliance gaps while the claim is still active and correctable.</span>
+                                </div>
+                            </li>
+                            <li class="comp-item positive">
+                                <i class="material-icons">check</i>
+                                <div class="comp-item-text">
+                                    <b>Deterministic Logic</b>
+                                    <span>Rules are executed by machine logic, ensuring perfect consistency.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="who">
+            <div class="who-container">
+                <div class="who-header reveal">
+                    <div class="section-eyebrow">WHO IT'S FOR</div>
+                    <h2>Built for the people who own the risk.</h2>
+                    <p>Three decision-makers. Three different views of the same problem. One platform that solves it for
+                        all of them.</p>
+                </div>
+                <div class="persona-grid">
+                    <!-- Card 1: Executive -->
+                    <div class="persona-card reveal glass-card" style="--delay: 0ms">
+                        <div class="role-tag tag-accent">EXECUTIVE PERSPECTIVE</div>
+                        <h3>Proof of performance, at scale.</h3>
+                        <div class="persona-fear">One bad audit = one lost carrier contract = $1M–$10M gone.</div>
+                        <p class="persona-desc">For leadership who needs to guarantee compliance to carrier clients and
+                            regulators without increasing headcount. You need high-level KPIs that prove your operation
+                            is audit-ready every single day.</p>
+                        <div class="persona-help-label">Executive Benefits</div>
+                        <ul class="persona-bullets">
+                            <li class="persona-bullet">Financial Leakage & Compliance KPIs</li>
+                            <li class="persona-bullet">Carrier-specific readiness reports on demand</li>
+                            <li class="persona-bullet">Audit-readiness score for stewardship meetings</li>
+                        </ul>
+                    </div>
+                    <!-- Card 2: Manager -->
+                    <div class="persona-card reveal glass-card" style="--delay: 150ms">
+                        <div class="role-tag tag-info">MANAGER PERSPECTIVE</div>
+                        <h3>Real-time oversight. Zero surprises.</h3>
+                        <div class="persona-fear">Quarterly QA reports are already outdated by the time they're read.
+                        </div>
+                        <p class="persona-desc">For team leads who need to know exactly how their unit is performing
+                            right now. Instead of reactive sampling, you monitor a live feed of every validation
+                            happening across your desk.</p>
+                        <div class="persona-help-label">Manager Benefits</div>
+                        <ul class="persona-bullets">
+                            <li class="persona-bullet">Live activity feed of all claim validations</li>
+                            <li class="persona-bullet">Instant alerts for compliance exceptions</li>
+                            <li class="persona-bullet">Regional and unit-based performance metrics</li>
+                        </ul>
+                    </div>
+                    <!-- Card 3: Analyst -->
+                    <div class="persona-card reveal glass-card" style="--delay: 300ms">
+                        <div class="role-tag tag-success">ANALYST PERSPECTIVE</div>
+                        <h3>Deterministic audits. Absolute confidence.</h3>
+                        <div class="persona-fear">Interpretations of "correct" should not depend on which human reviewed
+                            the file.</div>
+                        <p class="persona-desc">For the technical compliance team who needs to map complex regulations
+                            to executable logic. AuDRI ensures that every file is tested against the same ironclad
+                            rules, with total consistency.</p>
+                        <div class="persona-help-label">Analyst Benefits</div>
+                        <ul class="persona-bullets">
+                            <li class="persona-bullet">Automated validation against state-specific rules</li>
+                            <li class="persona-bullet">Natural language mapping to executable code</li>
+                            <li class="persona-bullet">Ironclad evidence trails for every claim file</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo">
+            <div class="demo-bg-glow"></div>
+            <div class="demo-container reveal">
+                <div class="section-eyebrow">GET STARTED</div>
+                <div class="demo-header">
+                    <h2>
+                        <span>The next audit is already scheduled.</span>
+                        <span class="italic">Are you ready?</span>
+                    </h2>
+                </div>
+                <p class="demo-subtext">
+                    Book a 30-minute walkthrough. We'll run your actual claim files through AuDRI live — so you see
+                    exactly what a regulator would see, and what we catch before they do.
+                </p>
+
+                <div class="email-capture">
+                    <input type="email" id="demoEmail" class="email-input" placeholder="your@company.com">
+                    <button id="demoSubmit" class="btn-submit">Book a Demo →</button>
+                </div>
+                <div id="demoSuccess">✓ Got it — we'll be in touch within one business day.</div>
+
+                <div class="demo-trust-line">No commitment. No sales pressure. Just your files, our engine, and a live
+                    audit.</div>
+
+                <div class="demo-proof">
+                    <div class="proof-item">
+                        <div class="proof-num">100%</div>
+                        <div class="proof-label">File Coverage</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="proof-num">$50B</div>
+                        <div class="proof-label">Market We Address</div>
+                    </div>
+                    <div class="proof-item">
+                        <div class="proof-num">70–80%</div>
+                        <div class="proof-label">Time Saved Per Audit</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo-brand">
+                        <div class="logo-mark" style="width: 28px; height: 28px;">
+                            <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+                                <rect x="10.5" y="2" width="3" height="20" rx="1.5" />
+                                <rect x="10.5" y="2" width="3" height="20" rx="1.5" transform="rotate(45 12 12)" />
+                                <rect x="10.5" y="2" width="3" height="20" rx="1.5" transform="rotate(90 12 12)" />
+                                <rect x="10.5" y="2" width="3" height="20" rx="1.5" transform="rotate(135 12 12)" />
+                            </svg>
+                        </div>
+                        <div class="wordmark">
+                            <span class="audri" style="font-size: 18px;">AudRI</span>
+                        </div>
+                    </a>
+                    <p class="footer-tagline">Gen 3 document technology. The moment compliance stops being a review and
+                        starts being a guarantee.</p>
+                    <div class="footer-contact">getaudri.com · info@glifiq.com</div>
+                </div>
+
+                <div class="footer-links-row">
+                    <div class="footer-col">
+                        <div class="footer-col-label">PRODUCT</div>
+                        <div class="footer-links">
+                            <a href="#platform">Platform</a>
+                            <a href="#how-it-works">How It Works</a>
+                            <a href="#regulatory">Intelligence</a>
+                            <a href="#who">Who It's For</a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <div class="footer-col-label">COMPANY</div>
+                        <div class="footer-links">
+                            <a href="#demo">Book a Demo</a>
+                            <a href="mailto:info@glifiq.com">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copy">© 2026 Glifiq Inc. All rights reserved.</div>
+                <div class="footer-designed">Built for insurance. Designed for regulators.</div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-overlay" id="mobile-overlay">
+        <ul class="mobile-links">
+            <li><a href="#platform" onclick="toggleMenu()">Platform</a></li>
+            <li><a href="#how-it-works" onclick="toggleMenu()">How It Works</a></li>
+            <li><a href="#regulatory" onclick="toggleMenu()">Intelligence</a></li>
+            <li><a href="#deep-dive" onclick="toggleMenu()">Deep Dive</a></li>
+            <li><a href="#who" onclick="toggleMenu()">Who It's For</a></li>
+            <li><a href="#demo" onclick="toggleMenu()">Book Demo</a></li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for reveal animations
+            const revealObs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        if (e.target.id === 'weaver-stage') initDataWeaver();
+                        if (e.target.id === 'validator-stage') initLogicValidator();
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+            // Ensure visuals trigger
+            const weaverStage = document.getElementById('weaver-stage');
+            const validatorStage = document.getElementById('validator-stage');
+            if (weaverStage) revealObs.observe(weaverStage);
+            if (validatorStage) revealObs.observe(validatorStage);
+
+            window.addEventListener('scroll', () => {
+                document.body.classList.toggle('nav-scrolled', window.scrollY > 60);
+
+                const scrolled = window.scrollY;
+                const total = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = total > 0 ? (scrolled / total) * 100 : 0;
+                const line = document.getElementById('scroll-line');
+                if (line) line.style.height = pct + '%';
+            });
+
+
+            // Data Weaver Animation
+            function initDataWeaver() {
+                const weaverStage = document.getElementById('weaver-stage');
+                if (!weaverStage || weaverStage.dataset.initialized) return;
+                weaverStage.dataset.initialized = "true";
+
+                for (let i = 0; i < 12; i++) {
+                    const node = document.createElement('div');
+                    node.className = 'weaver-node';
+                    weaverStage.appendChild(node);
+                    animateNode(node);
+                }
+
+                function animateNode(node) {
+                    const startX = -10;
+                    const startY = Math.random() * 100;
+                    const endX = 110;
+                    const endY = 40 + (Math.random() * 20);
+                    const duration = 2000 + Math.random() * 3000;
+                    const delay = Math.random() * 2000;
+
+                    node.style.left = startX + '%';
+                    node.style.top = startY + '%';
+                    node.style.opacity = '0';
+
+                    setTimeout(() => {
+                        node.style.transition = `all ${duration}ms linear, opacity 0.5s`;
+                        node.style.opacity = '1';
+                        node.style.left = endX + '%';
+                        node.style.top = endY + '%';
+
+                        setTimeout(() => {
+                            node.style.opacity = '0';
+                            setTimeout(() => {
+                                node.style.transition = 'none';
+                                animateNode(node);
+                            }, 500);
+                        }, duration - 500);
+                    }, delay);
+                }
+            }
+
+            // Logic Validator Animation
+            function initLogicValidator() {
+                const validatorStage = document.getElementById('validator-stage');
+                const grid = document.getElementById('validator-grid');
+                if (!grid || !validatorStage || validatorStage.dataset.initialized) return;
+                validatorStage.dataset.initialized = "true";
+
+                const cells = [];
+                for (let i = 0; i < 64; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.innerHTML = '<i class="material-icons">check</i>';
+                    grid.appendChild(cell);
+                    cells.push(cell);
+                }
+
+                function pulse() {
+                    const cells = document.querySelectorAll('.grid-cell');
+                    if (cells.length > 0) {
+                        const cell = cells[Math.floor(Math.random() * cells.length)];
+                        cell.classList.add('active');
+
+                        // Stage 1: "Scanning" state
+                        setTimeout(() => {
+                            const isPass = Math.random() > 0.15;
+                            cell.classList.remove('active');
+                            cell.classList.add(isPass ? 'pass' : 'fail');
+                            cell.querySelector('i').innerText = isPass ? 'check' : 'close';
+
+                            // Hold result then clear
+                            setTimeout(() => cell.classList.remove('pass', 'fail'), 2000 + Math.random() * 2000);
+                        }, 600 + Math.random() * 1000);
+                    }
+                    setTimeout(pulse, 400); // Higher frequency for "activity" feel
+                }
+                pulse();
+            }
+
+            // ScrollSpy & Chart Growth
+            const chartBars = document.querySelectorAll('.db-bar');
+            const sections = document.querySelectorAll('section, header');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            const scrollObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Update Nav
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                    // Trigger Chart Growth
+                    if (entry.isIntersecting && entry.target.id === 'platform') {
+                        chartBars.forEach(bar => {
+                            bar.style.height = bar.dataset.h;
+                        });
+                    }
+                });
+            }, { threshold: [0.1, 0.5, 0.8] });
+
+            sections.forEach(s => scrollObs.observe(s));
+            // Mobile Menu
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            window.toggleMenu = function () {
+                mobileOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileOverlay.classList.contains('active') ? 'hidden' : '';
+            }
+
+            // Demo Form Handler
+            const demoSubmit = document.getElementById('demoSubmit');
+            if (demoSubmit) {
+                demoSubmit.addEventListener('click', () => {
+                    const emailInput = document.getElementById('demoEmail');
+                    const email = emailInput.value.trim();
+                    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                        emailInput.style.borderColor = 'var(--error)';
+                        return;
+                    }
+                    emailInput.style.borderColor = 'var(--border-accent)';
+                    demoSubmit.textContent = 'Sending…';
+                    setTimeout(() => {
+                        document.getElementById('demoSuccess').style.display = 'block';
+                        demoSubmit.style.display = 'none';
+                    }, 800);
+                });
+            }
+
+            // ── DB: Tab switching
+            document.querySelectorAll('.db-tab').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.panel;
+                    document.querySelectorAll('.db-tab').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.db-panel').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                    if (target === 'db-manager') dbGenerateFeed();
+                    if (target === 'db-analyst') { dbResetAnalyst(); }
+                });
+            });
+
+            // ── DB: Feed data
+            const dbClaims = [
+                { prefix: 'CLM', type: 'Commercial Auto' }, { prefix: 'WC', type: "Workers' Comp" },
+                { prefix: 'GL', type: 'General Liability' }, { prefix: 'CP', type: 'Commercial Property' }
+            ];
+            const dbExceptions = [
+                { type: 'FLAG', id: 'CLM-2847-X', msg: 'Reserve set at $15k, suggests $11k' },
+                { type: 'ISSUE', id: 'CLM-1922-A', msg: 'Missing claimant statement' },
+                { type: 'ALERT', id: 'CLM-0581-K', msg: 'Potential total loss missed' }
+            ];
+
+            function dbAddFeedItem(animate = true) {
+                const c = document.getElementById('db-feed');
+                if (!c) return;
+                const statusPool = ['passed', 'passed', 'passed', 'passed', 'warning', 'warning', 'failed'];
+                const status = statusPool[Math.floor(Math.random() * statusPool.length)];
+                const p = dbClaims[Math.floor(Math.random() * dbClaims.length)];
+                const num = Math.floor(Math.random() * 9000) + 1000;
+                const icon = status === 'passed' ? '→' : status === 'warning' ? '⚠' : '✗';
+                const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const el = document.createElement('div');
+                el.className = `db-feed-item ${status} ${animate ? 'new-entry' : ''}`;
+                el.innerHTML = `<span>[${time}]</span> <span style="opacity:0.6">${icon}</span> <span>${p.prefix}-${num}</span> <span style="opacity:0.4">${p.type}</span> <span class="db-feed-item-time">now</span>`;
+                c.prepend(el);
+                if (c.children.length > 8) c.removeChild(c.lastElementChild);
+            }
+
+            function dbGenerateFeed() {
+                const c = document.getElementById('db-feed');
+                if (!c) return;
+                c.innerHTML = '';
+                for (let i = 0; i < 6; i++) dbAddFeedItem(false);
+
+                const ec = document.getElementById('db-exceptions-container');
+                if (!ec) return;
+                ec.innerHTML = '';
+                dbExceptions.forEach(e => {
+                    const d = document.createElement('div');
+                    d.className = 'db-exception-item';
+                    d.innerHTML = `<div class="db-exception-head"><span class="db-exception-type">${e.type}</span><span class="db-exception-id">${e.id}</span></div><div class="db-exception-msg">${e.msg}</div><a href="#" class="db-exception-link">Review →</a>`;
+                    ec.appendChild(d);
+                });
+            }
+
+            setInterval(() => {
+                // Always run feed in background to feel "live"
+                dbAddFeedItem(true);
+            }, 3000);
+
+            window.dbStartAudit = function () {
+                document.getElementById('db-upload-stage').style.display = 'none';
+                document.getElementById('db-audit-stage').style.display = 'block';
+                const bar = document.getElementById('db-audit-bar');
+                const pct = document.getElementById('db-audit-pct');
+                const progFill = document.querySelector('.db-progress-fill');
+
+                document.getElementById('db-s1').classList.add('complete');
+                document.getElementById('db-s2').classList.add('active');
+                if (progFill) progFill.style.setProperty('--p-fill', '0.5');
+
+                let p = 0;
+                const iv = setInterval(() => {
+                    p += Math.floor(Math.random() * 8) + 2;
+                    if (p >= 100) {
+                        clearInterval(iv);
+                        if (bar) bar.style.width = '100%';
+                        if (pct) pct.textContent = '100';
+                        setTimeout(() => {
+                            document.getElementById('db-audit-stage').style.display = 'none';
+                            document.getElementById('db-results-stage').style.display = 'block';
+                            document.getElementById('db-s2').classList.add('complete');
+                            document.getElementById('db-s3').classList.add('active');
+                            if (progFill) progFill.style.setProperty('--p-fill', '1');
+                        }, 700);
+                    } else {
+                        if (bar) bar.style.width = p + '%';
+                        if (pct) pct.textContent = p;
+                    }
+                }, 400);
+            }
+
+            window.dbResetAnalyst = function () {
+                document.getElementById('db-upload-stage').style.display = 'block';
+                document.getElementById('db-audit-stage').style.display = 'none';
+                document.getElementById('db-results-stage').style.display = 'none';
+                const bar = document.getElementById('db-audit-bar');
+                const pct = document.getElementById('db-audit-pct');
+                const progFill = document.querySelector('.db-progress-fill');
+
+                if (bar) bar.style.width = '0%';
+                if (pct) pct.textContent = '0';
+                if (progFill) progFill.style.setProperty('--p-fill', '0');
+
+                ['db-s1', 'db-s2', 'db-s3'].forEach((id, i) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.classList.remove('active', 'complete');
+                        if (i === 0) el.classList.add('active');
+                    }
+                });
+            }
+
+            // Init manager feed on load
+            dbGenerateFeed();
+        });
+    </script>
+</body>
+
+</html>

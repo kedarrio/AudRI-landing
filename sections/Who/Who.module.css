@@ -1,0 +1,85 @@
+/* sections/Who/Who.module.css */
+
+.who {
+  background: var(--bg-1);
+  padding: var(--section-py-lg) var(--section-px);
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+  gap: var(--sp-6);
+  margin-top: var(--sp-12);
+}
+
+.card {
+  background: var(--bg-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-10);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 450px;
+  box-shadow: var(--shadow-2);
+  transition: all 0.4s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-4);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  bottom: 0;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.cardLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: var(--sp-5);
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-4);
+}
+
+.cardDesc {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .card {
+     padding: var(--sp-6);
+     min-width: unset;
+  }
+}

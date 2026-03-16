@@ -1,0 +1,14 @@
+/* components/ui/ScrollLine/ScrollLine.module.css */
+
+.scrollLine {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1.5px;
+  height: 0%;
+  background: linear-gradient(to bottom, var(--accent), rgba(252, 154, 101, 0.2));
+  z-index: 999;
+  pointer-events: none;
+  transition: height 0.1s linear;
+  border-radius: 0 1px 1px 0;
+}

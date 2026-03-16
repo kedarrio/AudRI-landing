@@ -1,0 +1,143 @@
+/* sections/Platform/Platform.module.css */
+
+.platform {
+  background: var(--bg-1);
+  padding: var(--section-py-lg) var(--section-px);
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.dbContainer {
+  margin-top: var(--sp-12);
+  width: 100%;
+}
+
+.disclaimer {
+  margin-top: var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  opacity: 0.8;
+}
+
+.disclaimer span {
+  font-size: 14px;
+}
+
+.personas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  gap: var(--sp-6);
+  margin-top: var(--sp-16);
+}
+
+.personaCard {
+  background: var(--bg-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-2xl);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  box-shadow: var(--shadow-2);
+  transition: all 0.4s var(--ease);
+  position: relative;
+  /* Stability fix */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.personaCard:hover {
+  transform: translateY(-8px) translateZ(0);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-4);
+}
+
+.personaTag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  margin-bottom: var(--sp-5);
+  width: fit-content;
+}
+
+.accent { background: var(--accent-dim); color: var(--accent); }
+.info { background: var(--info-dim); color: var(--info); }
+.success { background: var(--success-dim); color: var(--success); }
+
+.personaTitle {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-3);
+}
+
+.painPoint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--error);
+  margin-bottom: var(--sp-6);
+  padding: 12px;
+  background: rgba(248, 113, 113, 0.05);
+  border-radius: var(--r-md);
+  border: 1px solid rgba(248, 113, 113, 0.1);
+  display: flex;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.painPoint span {
+  font-size: 14px;
+}
+
+.personaDesc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--sp-6);
+}
+
+.personaList {
+  margin-top: auto;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.personaList li {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.personaList li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@media (max-width: 880px) {
+  .personas {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .personaCard {
+    min-width: unset;
+  }
+}
