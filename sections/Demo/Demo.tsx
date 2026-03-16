@@ -103,7 +103,7 @@ const Demo: React.FC = () => {
                     className={styles.submitBtn}
                     disabled={status === 'loading'}
                   >
-                    {status === 'loading' ? 'Requesting...' : 'Book Early Access'}
+                    {status === 'loading' ? 'Requesting...' : 'Book a call'}
                   </Button>
                 </form>
                 

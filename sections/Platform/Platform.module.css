@@ -38,28 +38,6 @@
   margin-top: var(--sp-16);
 }
 
-.personaCard {
-  background: var(--bg-1);
-  border: 1px solid var(--border-default);
-  border-radius: var(--r-2xl);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  min-width: 400px;
-  box-shadow: var(--shadow-2);
-  transition: all 0.4s var(--ease);
-  position: relative;
-  /* Stability fix */
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-.personaCard:hover {
-  transform: translateY(-8px) translateZ(0);
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-4);
-}
-
 .personaTag {
   font-family: var(--font-mono);
   font-size: 9px;

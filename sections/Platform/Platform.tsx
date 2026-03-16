@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { FADE_UP, PERSONA_CARDS } from '@/lib/constants'
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader'
 import Dashboard from '@/components/dashboard/Dashboard'
+import Card from '@/components/ui/Card/Card'
 import styles from './Platform.module.css'
 
 const Platform: React.FC = () => {
@@ -33,9 +34,10 @@ const Platform: React.FC = () => {
 
         <div className={styles.personas}>
           {PERSONA_CARDS.map((persona, i) => (
-            <motion.div 
+            <Card 
               key={i}
-              className={styles.personaCard}
+              variant="perspective"
+              bg="bg1"
               variants={FADE_UP}
               initial="hidden"
               whileInView="visible"
@@ -58,7 +60,7 @@ const Platform: React.FC = () => {
                   <li key={j}>{bullet}</li>
                 ))}
               </ul>
-            </motion.div>
+            </Card>
           ))}
         </div>
       </div>

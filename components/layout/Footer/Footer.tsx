@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
             <p className={styles.tagline}>
               Gen 3 document technology. The moment compliance stops being a review and starts being a guarantee.
             </p>
-            <div className={styles.contact}>getaudri.com · info@glifiq.com</div>
+            <div className={styles.contact}>getaudri.com · keshav@getaudri.com</div>
           </div>
 
           <div className={styles.linksRow}>
@@ -40,8 +40,8 @@ const Footer: React.FC = () => {
             <div className={styles.col}>
               <div className={styles.colLabel}>COMPANY</div>
               <div className={styles.links}>
-                <a href="#demo">Book a Demo</a>
-                <a href="mailto:info@glifiq.com">Contact</a>
+                <a href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer">Book a call</a>
+                <a href="mailto:keshav@getaudri.com">Contact</a>
               </div>
             </div>
           </div>

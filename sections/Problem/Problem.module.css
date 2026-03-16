@@ -32,30 +32,6 @@
   margin-top: var(--sp-12);
 }
 
-.pCard {
-  background: var(--bg-1);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-xl);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: all 0.4s var(--ease);
-  box-shadow: var(--shadow-2);
-}
-
-.pCard:hover {
-  transform: translateY(-8px);
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-4);
-  background: var(--bg-2);
-}
-
-.pCard:hover .visual {
-  transform: scale(1.1);
-  opacity: 1;
-}
-
 .cardHeader {
   display: flex;
   align-items: center;
@@ -78,11 +54,14 @@
   overflow: hidden;
 }
 
-.visual {
-  width: 28px;
-  height: 28px;
+.illustrationWrap :global(.material-icons) {
+  font-size: 24px;
   transition: all 0.6s var(--ease);
-  opacity: 0.8;
+}
+
+.card:hover .illustrationWrap :global(.material-icons) {
+  transform: scale(1.1);
+  color: var(--accent);
 }
 
 .label {

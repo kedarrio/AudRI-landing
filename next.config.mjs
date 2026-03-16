@@ -1,9 +1,11 @@
+const isGithubActions = process.env.GITHUB_PAGES === 'true';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
-  // Change '/AudRI-landing' to your repository name if different
-  basePath: '/AudRI-landing',
+  // Only apply basePath when deploying to GitHub Pages
+  basePath: isGithubActions ? '/AudRI-landing' : '',
   images: {
     unoptimized: true,
   },

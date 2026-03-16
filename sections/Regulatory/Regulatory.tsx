@@ -6,6 +6,8 @@ import { FADE_UP, PROOF_ITEMS } from '@/lib/constants'
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader'
 import styles from './Regulatory.module.css'
 
+import Card from '@/components/ui/Card/Card'
+
 const Regulatory: React.FC = () => {
   return (
     <section id="regulatory" className={styles.regulatory}>
@@ -17,13 +19,14 @@ const Regulatory: React.FC = () => {
         />
 
         <div className={styles.grid}>
-          <motion.div 
-            className={styles.mainCard}
+          <Card 
+            variant="standard"
+            bg="bg1"
             variants={FADE_UP}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            style={{ transform: 'translateZ(0)' }}
+            className={styles.mainCardInner}
           >
             <div className={styles.cardHeader}>
               <h3 className={styles.cardTitle}>One-Click Audit Package</h3>
@@ -70,7 +73,7 @@ const Regulatory: React.FC = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </Card>
 
           <div className={styles.proofStrip}>
             {PROOF_ITEMS.map((item, i) => (

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FADE_UP } from '@/lib/constants'
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader'
+import Card from '@/components/ui/Card/Card'
 import styles from './DeepDive.module.css'
 
 const PARSERS = [
@@ -57,8 +58,9 @@ const DeepDive: React.FC = () => {
 
         <div className={styles.grid}>
           {/* Card 1: Semantic Parser */}
-          <motion.div 
-            className={styles.card}
+          <Card 
+            variant="standard"
+            bg="bg1"
             variants={FADE_UP}
             initial="hidden"
             whileInView="visible"
@@ -112,11 +114,12 @@ const DeepDive: React.FC = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </Card>
 
           {/* Card 2: Continuous Auditor */}
-          <motion.div 
-            className={styles.card}
+          <Card 
+            variant="standard"
+            bg="bg1"
             variants={FADE_UP}
             initial="hidden"
             whileInView="visible"
@@ -148,11 +151,12 @@ const DeepDive: React.FC = () => {
                 <div className={styles.scanBeam} />
               </div>
             </div>
-          </motion.div>
+          </Card>
 
           {/* Card 3: Evidence Ledger */}
-          <motion.div 
-            className={styles.card}
+          <Card 
+            variant="standard"
+            bg="bg1"
             variants={FADE_UP}
             initial="hidden"
             whileInView="visible"
@@ -188,7 +192,7 @@ const DeepDive: React.FC = () => {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </Card>
         </div>
       </div>
     </section>

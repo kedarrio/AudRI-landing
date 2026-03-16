@@ -6,6 +6,8 @@ import { FADE_UP, STEPS } from '@/lib/constants'
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader'
 import styles from './HowItWorks.module.css'
 
+import Card from '@/components/ui/Card/Card'
+
 const HowItWorks: React.FC = () => {
   return (
     <section id="how-it-works" className={styles.howItWorks}>
@@ -18,15 +20,15 @@ const HowItWorks: React.FC = () => {
 
         <div className={styles.stepsGrid}>
           {STEPS.map((step, i) => (
-            <motion.div 
+            <Card 
               key={i}
-              className={styles.stepCard}
+              variant="standard"
+              bg="bg1"
               variants={FADE_UP}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-40px' }}
               custom={i * 0.1}
-              style={{ transform: 'translateZ(0)' }}
             >
               <div className={styles.cardHeader}>
                 <div className={styles.iconBox}>
@@ -44,7 +46,7 @@ const HowItWorks: React.FC = () => {
                   <span key={j} className={styles.tag}>{tag}</span>
                 ))}
               </div>
-            </motion.div>
+            </Card>
           ))}
         </div>
       </div>

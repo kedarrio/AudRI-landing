@@ -10,6 +10,8 @@ interface ButtonProps {
   className?: string
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
+  target?: string
+  rel?: string
 }
 
 const Button: React.FC<ButtonProps> = ({ 
@@ -19,13 +21,15 @@ const Button: React.FC<ButtonProps> = ({
   children, 
   className = '', 
   type = 'button',
-  disabled = false
+  disabled = false,
+  target,
+  rel
 }) => {
   const combinedClassName = `${styles.button} ${styles[variant]} ${disabled ? styles.disabled : ''} ${className}`
 
   if (href && !disabled) {
     return (
-      <a href={href} className={combinedClassName} onClick={onClick}>
+      <a href={href} className={combinedClassName} onClick={onClick} target={target} rel={rel}>
         {children}
       </a>
     )

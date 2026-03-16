@@ -1,0 +1,72 @@
+/* components/ui/Card/Card.module.css */
+
+.perspectiveWrap {
+  perspective: 1000px;
+  height: 100%;
+  display: flex;
+}
+
+.perspective {
+  height: 100%;
+  width: 100%;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: var(--sp-8);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.5s var(--card-ease);
+  box-shadow: var(--card-shadow);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Common Hover State */
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--card-shadow-hover);
+  /* Standard hover up */
+  transform: translateY(-8px);
+}
+
+/* Perspective Class */
+.perspective .card:hover {
+  transform: translateY(-12px) rotateX(4deg) scale(1.02);
+}
+
+/* Variants */
+.bgBase {
+  --card-bg: var(--bg-base);
+}
+
+.bg1 {
+  --card-bg: var(--bg-1);
+}
+
+.bg2 {
+  --card-bg: var(--bg-2);
+}
+
+.bg3 {
+  --card-bg: var(--bg-3);
+}
+
+.glass {
+  --card-bg: var(--glass-1);
+  backdrop-filter: var(--blur-md);
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: var(--sp-6);
+  }
+  
+  .perspective .card:hover {
+    transform: translateY(-4px); /* Simplified for mobile */
+  }
+}

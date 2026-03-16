@@ -46,16 +46,14 @@ const Hero: React.FC = () => {
           animate="visible"
           custom={0.52}
         >
-          <Button variant="primary" href="#demo">Book a Demo</Button>
+          <Button variant="primary" href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer">Book a call</Button>
           <Button variant="ghost" href="#how-it-works">See How It Works</Button>
         </motion.div>
 
       </div>
 
       <div className={styles.scrollHint}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
+        <span className="material-icons" style={{ animation: 'bounce 2s infinite' }}>expand_more</span>
       </div>
     </header>
   )

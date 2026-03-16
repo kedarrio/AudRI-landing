@@ -27,8 +27,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             </li>
           ))}
           <li>
-            <a href="#demo" onClick={onClose}>
-              Book Demo
+            <a href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer" onClick={onClose}>
+              Book a call
             </a>
           </li>
         </ul>

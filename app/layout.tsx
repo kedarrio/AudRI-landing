@@ -26,6 +26,38 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'AudRI | Audit Realtime Intelligence',
   description: 'Gen 3 document technology. Validating every claim file, in real time, before a regulator ever asks.',
+  keywords: ['Audit Realtime Intelligence', 'Insurance Claims', 'Compliance', 'SaaS', 'Real-time Validation', 'Document Technology'],
+  authors: [{ name: 'AudRI Team' }],
+  metadataBase: new URL('https://kedarrio.github.io/AudRI-landing/'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'AudRI | Audit Realtime Intelligence',
+    description: 'Validating every claim file, in real time, before a regulator ever asks.',
+    url: 'https://kedarrio.github.io/AudRI-landing/',
+    siteName: 'AudRI',
+    images: [
+      {
+        url: '/og-image.jpg', // Ensure this image exists in public folder
+        width: 1200,
+        height: 630,
+        alt: 'AudRI - Audit Realtime Intelligence',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AudRI | Audit Realtime Intelligence',
+    description: 'Gen 3 document technology for insurance compliance.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export const viewport: Viewport = {
