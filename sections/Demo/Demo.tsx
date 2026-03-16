@@ -73,7 +73,7 @@ const Demo: React.FC = () => {
                   See how AuDRI can transform your organization&apos;s compliance framework into a live, deterministic oversight engine.
                 </p>
                 
-                <form className={styles.form} onSubmit={handleSubmit}>
+                <form className={styles.form} onSubmit={handleSubmit} noValidate>
                   <div className={styles.inputWrapper}>
                     <input 
                       type="email" 
@@ -85,17 +85,20 @@ const Demo: React.FC = () => {
                         if (status === 'error') setStatus('idle')
                       }}
                       disabled={status === 'loading'}
-                      required
                     />
-                    {status === 'error' && (
-                      <motion.span 
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className={styles.errorText}
-                      >
-                        {errorMessage}
-                      </motion.span>
-                    )}
+                    <AnimatePresence>
+                      {status === 'error' && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className={styles.errorContainer}
+                        >
+                          <span className="material-icons" style={{ fontSize: '14px' }}>error_outline</span>
+                          {errorMessage}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                   <Button 
                     variant="cta" 
@@ -103,12 +106,12 @@ const Demo: React.FC = () => {
                     className={styles.submitBtn}
                     disabled={status === 'loading'}
                   >
-                    {status === 'loading' ? 'Requesting...' : 'Book a call'}
+                    {status === 'loading' ? 'Processing...' : 'Join the wishlist'}
                   </Button>
                 </form>
                 
                 <div className={styles.policy}>
-                  By clicking &quot;Book Early Access&quot;, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.
+                  By clicking &quot;Join the wishlist&quot;, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.
                 </div>
               </motion.div>
             )}

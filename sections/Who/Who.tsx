@@ -46,6 +46,7 @@ const Who: React.FC = () => {
               key={i}
               variant="perspective"
               bg="base"
+              className={styles.card}
               variants={FADE_UP}
               initial="hidden"
               whileInView="visible"

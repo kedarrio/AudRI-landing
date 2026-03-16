@@ -110,20 +110,33 @@
 }
 
 .inputError {
-  border-color: var(--error);
+  border-color: var(--error) !important;
+  box-shadow: 0 0 0 4px var(--error-dim) !important;
+  animation: shake 0.4s var(--ease);
 }
 
-.errorText {
-  font-family: var(--font-mono);
-  font-size: 10px;
+.errorContainer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: var(--error);
-  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-top: 4px;
   padding-left: 4px;
+  overflow: hidden;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 .submitBtn {
   width: 100%;
   min-height: 56px;
+  font-weight: 600;
 }
 
 .successContent {
