@@ -100,13 +100,13 @@
   padding: 40px var(--sp-5);
   text-align: center;
   background: var(--glass-1);
-  transition: all 0.2s;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
   cursor: pointer;
 }
 
 .uploadZone:hover {
   border-color: var(--border-accent);
-  background: var(--accent-glow);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
 .uploadTitle {

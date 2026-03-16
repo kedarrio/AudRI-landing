@@ -30,12 +30,12 @@ const Dashboard: React.FC = () => {
           <button 
             className={`${styles.dbTab} ${activeTab === 'executive' ? styles.active : ''}`}
             onClick={() => handleTabChange('executive')}
-            aria-label="Switch to Executive Overview"
+            aria-label="Switch to Executive View"
           >
             <span className="material-icons">dashboard</span>
             <div>
               <div className={styles.dbTabLabel}>Executive</div>
-              <div className={styles.dbTabSub}>Overview</div>
+              <div className={styles.dbTabSub}>View</div>
             </div>
           </button>
 
@@ -47,19 +47,19 @@ const Dashboard: React.FC = () => {
             <span className="material-icons">group</span>
             <div>
               <div className={styles.dbTabLabel}>Manager</div>
-              <div className={styles.dbTabSub}>Live Activity</div>
+              <div className={styles.dbTabSub}>View</div>
             </div>
           </button>
 
           <button 
             className={`${styles.dbTab} ${activeTab === 'analyst' ? styles.active : ''}`}
             onClick={() => handleTabChange('analyst')}
-            aria-label="Switch to Analyst Workflow"
+            aria-label="Switch to Analyst View"
           >
             <span className="material-icons">assignment</span>
             <div>
               <div className={styles.dbTabLabel}>Analyst</div>
-              <div className={styles.dbTabSub}>Workflow</div>
+              <div className={styles.dbTabSub}>View</div>
             </div>
           </button>
         </div>

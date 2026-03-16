@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
             <div className={styles.col}>
               <div className={styles.colLabel}>COMPANY</div>
               <div className={styles.links}>
-                <a href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer">Book a call</a>
+                <a href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer">Book a Call</a>
                 <a href="mailto:keshav@getaudri.com">Contact</a>
               </div>
             </div>

@@ -13,7 +13,7 @@ const HowItWorks: React.FC = () => {
     <section id="how-it-works" className={styles.howItWorks}>
       <div className={styles.container}>
         <SectionHeader 
-          eyebrow="SYSTEM OVERVIEW" 
+          eyebrow="HOW IT WORKS" 
           title="The Lifecycle of an Ironclad Audit"
           subtitle="AuDRI transforms complex regulatory environments into a deterministic rules engine."
         />

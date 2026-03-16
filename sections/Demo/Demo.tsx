@@ -67,7 +67,7 @@ const Demo: React.FC = () => {
                 exit={{ opacity: 0 }}
                 className={styles.content}
               >
-                <div className={styles.eyebrow}>READY TO GUARANTEE COMPLIANCE?</div>
+                <div className={styles.eyebrow}>GET STARTED</div>
                 <h2 className={styles.title}>Your Market Conduct readiness starts here.</h2>
                 <p className={styles.sub}>
                   See how AuDRI can transform your organization&apos;s compliance framework into a live, deterministic oversight engine.
@@ -109,10 +109,6 @@ const Demo: React.FC = () => {
                     {status === 'loading' ? 'Processing...' : 'Join the wishlist'}
                   </Button>
                 </form>
-                
-                <div className={styles.policy}>
-                  By clicking &quot;Join the wishlist&quot;, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.
-                </div>
               </motion.div>
             )}
           </AnimatePresence>

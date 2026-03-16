@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: all 0.5s var(--card-ease);
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
   box-shadow: var(--card-shadow);
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -28,15 +28,15 @@
 
 /* Common Hover State */
 .card:hover {
-  border-color: var(--accent);
-  box-shadow: var(--card-shadow-hover);
-  /* Standard hover up */
-  transform: translateY(-8px);
+  border-color: var(--border-accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
 /* Perspective Class */
 .perspective .card:hover {
-  transform: translateY(-12px) rotateX(4deg) scale(1.02);
+  /* Removed transforms */
+  border-color: var(--border-accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
 /* Variants */

@@ -60,7 +60,6 @@
 }
 
 .card:hover .illustrationWrap :global(.material-icons) {
-  transform: scale(1.1);
   color: var(--accent);
 }
 

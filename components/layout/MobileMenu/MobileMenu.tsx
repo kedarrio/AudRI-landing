@@ -17,7 +17,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <button className={styles.closeButton} onClick={onClose} aria-label="Close Menu">
           <span className="material-icons">close</span>
         </button>
-        
+
         <ul className={styles.mobileLinks}>
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
@@ -28,7 +28,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           ))}
           <li>
             <a href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer" onClick={onClose}>
-              Book a call
+              Book a Call
             </a>
           </li>
         </ul>

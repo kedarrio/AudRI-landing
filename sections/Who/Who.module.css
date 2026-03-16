@@ -56,7 +56,6 @@
 .card:hover .illustrationBox {
   background: var(--accent-dim);
   border-color: var(--accent);
-  transform: scale(1.05);
 }
 
 .illustrationBox :global(.material-icons) {

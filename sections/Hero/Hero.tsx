@@ -15,10 +15,10 @@ const Hero: React.FC = () => {
       <div className={styles.orb1}></div>
       <div className={styles.orb2}></div>
       <div className={styles.heroGlow}></div>
-      
+
       <div className={styles.heroContent}>
 
-        <motion.h1 
+        <motion.h1
           className={styles.heroTitle}
           variants={FADE_UP}
           initial="hidden"
@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
           <span className={styles.italicText}>it's already been audited.</span>
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           className={styles.heroSub}
           variants={FADE_UP}
           initial="hidden"
@@ -39,14 +39,14 @@ const Hero: React.FC = () => {
           AuDRI turns your SOPs, regulatory manuals, and carrier guidelines into a live rules engine — validating every claim file, in real time, before a regulator ever asks.
         </motion.p>
 
-        <motion.div 
+        <motion.div
           className={styles.ctaRow}
           variants={FADE_UP}
           initial="hidden"
           animate="visible"
           custom={0.52}
         >
-          <Button variant="primary" href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer">Book a call</Button>
+          <Button variant="primary" href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer">Book a Call</Button>
           <Button variant="ghost" href="#how-it-works">See How It Works</Button>
         </motion.div>
 

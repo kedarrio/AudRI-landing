@@ -51,7 +51,7 @@ const DeepDive: React.FC = () => {
       <div className={styles.glow} />
       <div className={styles.container}>
         <SectionHeader 
-          eyebrow="CORE TECHNOLOGY"
+          eyebrow="THE TECHNOLOGY"
           title="Built for throughput. Engineered for precision."
           subtitle="The infrastructure that powers AuDRI handles millions of claim files without breaking a sweat, ensuring every validation is deterministic and absolute."
         />
@@ -68,7 +68,7 @@ const DeepDive: React.FC = () => {
           >
             <div className={styles.cardHeader}>
               <span className={styles.cardTag}>TRANSLATION ENGINE</span>
-              <h3>Semantic Parser</h3>
+              <h3>Rule Extraction</h3>
               <p className={styles.cardDesc}>Converting complex SOPs and regulatory text into executable machine logic in real-time.</p>
             </div>
             
@@ -128,7 +128,7 @@ const DeepDive: React.FC = () => {
           >
             <div className={styles.cardHeader}>
               <span className={styles.cardTag}>REAL-TIME VALIDATION</span>
-              <h3>Continuous Auditor</h3>
+              <h3>Live Validation</h3>
               <p className={styles.cardDesc}>Every claim file is scanned against every rule as soon as it changes. No sampling, total coverage.</p>
             </div>
 
@@ -165,7 +165,7 @@ const DeepDive: React.FC = () => {
           >
             <div className={styles.cardHeader}>
               <span className={styles.cardTag}>AUDIT DEFENSE</span>
-              <h3>Evidence Ledger</h3>
+              <h3>Audit Defense</h3>
               <p className={styles.cardDesc}>Immutable, timestamped proof of every validation, ready for the regulator at a moment's notice.</p>
             </div>
 

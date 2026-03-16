@@ -48,7 +48,7 @@ const Nav: React.FC = () => {
 
         <div className={styles.navActions}>
           <Button variant="cta" href="https://calendly.com/keshav-glifiq/glif-demo" target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
-            <span className={styles.desktopOnly}>Book a </span>call
+            <span className={styles.desktopOnly}>Book a Call</span>
           </Button>
           <button
             className={styles.menuToggle}

@@ -13,7 +13,7 @@ const Platform: React.FC = () => {
     <section id="platform" className={styles.platform}>
       <div className={styles.container}>
         <SectionHeader 
-          eyebrow="THE DASHBOARD"
+          eyebrow="THE PLATFORM"
           title="Full Visibility. Complete Control."
           subtitle="AuDRI provides tailored perspectives for every level of the organization."
         />
@@ -27,8 +27,7 @@ const Platform: React.FC = () => {
         >
           <Dashboard />
           <div className={styles.disclaimer}>
-            <span className="material-icons">info</span>
-            Conceptual interface shown. Audit results and extracted rules are deterministic based on provided documentation.
+            Showing sample data — your files connect in minutes.
           </div>
         </motion.div>
 

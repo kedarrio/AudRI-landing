@@ -36,8 +36,8 @@ const ManagerPanel: React.FC<ManagerPanelProps> = ({ active }) => {
       <div className={styles.managerGrid}>
         <div>
           <div className={styles.feedList}>
-            {feed.map((item, i) => (
-              <div key={i} className={`${styles.feedItem} ${styles[item.status]} ${styles.newEntry}`}>
+            {feed.map((item) => (
+              <div key={item.id} className={`${styles.feedItem} ${styles[item.status]} ${styles.newEntry}`}>
                 <span>[{item.time}]</span>
                 <span style={{ opacity: 0.6 }}>
                   {item.status === 'passed' ? '→' : item.status === 'warning' ? '⚠' : '✗'}

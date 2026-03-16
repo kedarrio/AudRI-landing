@@ -61,7 +61,7 @@ export const STEPS: Step[] = [
 
 export const PERSONA_CARDS: PersonaCard[] = [
   {
-    role: 'EXECUTIVE PERSPECTIVE',
+    role: 'EXECUTIVE VIEW',
     tagVariant: 'accent',
     title: 'Proof of performance, at scale.',
     fear: 'One bad audit = one lost carrier contract = $1M–$10M gone.',
@@ -74,7 +74,7 @@ export const PERSONA_CARDS: PersonaCard[] = [
     ],
   },
   {
-    role: 'MANAGER PERSPECTIVE',
+    role: 'MANAGER VIEW',
     tagVariant: 'info',
     title: 'Real-time oversight. Zero surprises.',
     fear: "Quarterly QA reports are already outdated by the time they're read.",
@@ -87,7 +87,7 @@ export const PERSONA_CARDS: PersonaCard[] = [
     ],
   },
   {
-    role: 'ANALYST PERSPECTIVE',
+    role: 'ANALYST VIEW',
     tagVariant: 'success',
     title: 'Deterministic audits. Absolute confidence.',
     fear: 'Interpretations of "correct" should not depend on which human reviewed the file.',

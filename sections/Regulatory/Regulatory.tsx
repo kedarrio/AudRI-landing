@@ -13,7 +13,7 @@ const Regulatory: React.FC = () => {
     <section id="regulatory" className={styles.regulatory}>
       <div className={styles.container}>
         <SectionHeader 
-          eyebrow="AUDIT READINESS"
+          eyebrow="REGULATORY INTELLIGENCE"
           title="Stop scrambling. Start reconciling."
           subtitle="Don't wait for the audit notice. AuDRI provides continuous, pre-packaged proof of performance."
         />

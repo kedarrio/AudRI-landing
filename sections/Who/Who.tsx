@@ -34,7 +34,7 @@ const Who: React.FC = () => {
     <section id="who" className={styles.who}>
       <div className={styles.container}>
         <SectionHeader 
-          eyebrow="TARGET AUDIENCE"
+          eyebrow="WHO IT'S FOR"
           title="Built for the high-stakes claims ecosystem."
           subtitle="AuDRI is designed for organizations where compliance isn't a check-box — it's the core business."
           align="center"
@@ -62,11 +62,6 @@ const Who: React.FC = () => {
               
               <h3 className={styles.title}>{item.title}</h3>
               <p className={styles.description}>{item.desc}</p>
-              
-              <div className={styles.footer}>
-                <span className={styles.actionText}>Learn more</span>
-                <span className="material-icons" style={{ fontSize: '16px' }}>east</span>
-              </div>
             </Card>
           ))}
         </div>
