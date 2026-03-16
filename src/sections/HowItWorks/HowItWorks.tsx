@@ -1,7 +1,6 @@
 // sections/HowItWorks/HowItWorks.tsx
 'use client'
 import React from 'react'
-import { motion } from 'framer-motion'
 import { FADE_UP, STEPS } from '@/lib/constants'
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader'
 import styles from './HowItWorks.module.css'

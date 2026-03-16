@@ -1,7 +1,6 @@
 // sections/Who/Who.tsx
 'use client'
 import React from 'react'
-import { motion } from 'framer-motion'
 import { FADE_UP } from '@/lib/constants'
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader'
 import styles from './Who.module.css'

@@ -2,7 +2,6 @@
 'use client'
 import React from 'react'
 import { motion } from 'framer-motion'
-import EyebrowBadge from '@/components/ui/EyebrowBadge/EyebrowBadge'
 import Button from '@/components/ui/Button/Button'
 import { FADE_UP } from '@/lib/constants'
 import BackgroundVisual from './BackgroundVisual'
@@ -26,7 +25,7 @@ const Hero: React.FC = () => {
           custom={0.2}
         >
           <span>When the regulator opens your file,</span>
-          <span className={styles.italicText}>it's already been audited.</span>
+          <span className={styles.italicText}>it&apos;s already been audited.</span>
         </motion.h1>
 
         <motion.p

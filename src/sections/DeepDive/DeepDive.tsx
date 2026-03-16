@@ -166,7 +166,7 @@ const DeepDive: React.FC = () => {
             <div className={styles.cardHeader}>
               <span className={styles.cardTag}>AUDIT DEFENSE</span>
               <h3>Audit Defense</h3>
-              <p className={styles.cardDesc}>Immutable, timestamped proof of every validation, ready for the regulator at a moment's notice.</p>
+              <p className={styles.cardDesc}>Immutable, timestamped proof of every validation, ready for the regulator at a moment&apos;s notice.</p>
             </div>
 
             <div className={styles.visualStage}>
