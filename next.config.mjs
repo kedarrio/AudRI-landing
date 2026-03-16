@@ -1,5 +1,5 @@
-import type { NextConfig } from 'next'
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   output: 'export',
   // Change '/AudRI-landing' to your repository name if different
@@ -8,4 +8,5 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 }
+
 export default nextConfig
